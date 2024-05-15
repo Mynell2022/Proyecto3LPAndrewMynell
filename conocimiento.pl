@@ -80,8 +80,10 @@ eliminar_elemento([Y|Xs], X, [Y|Resultado]) :-
     X \= Y,
     eliminar_elemento(Xs, X, Resultado).
 
-insertar_predicados(Predicado) :-
-    assert(Predicado).
+insertar_predicados([]).
+insertar_predicados([Predicado|Resto]) :-
+    assert(Predicado),
+    insertar_predicados(Resto).
 
 imprimir_predicados :-
     current_predicate(_, Predicado),
