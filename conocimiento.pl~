@@ -1,0 +1,27 @@
+oracion(verbo, objeto).
+oracion(objeto, verbo).
+
+verbo(quiero, hacer).
+verbo(haceré).
+
+objeto(una, suma).
+objeto(una, resta).
+objeto(sumar).
+objeto(restar).
+
+chatbot() :-
+    write('Bienvenido'),
+    nl,
+    chatbotAux().
+
+chatbotAux() :-
+    write('¿Hay algo en lo que pueda ayudarte?'),
+    nl,
+    read(Entrada),
+    analizar(Entrada, Accion),
+    write(Accion).
+
+analizar(Texto, Accion) :-
+    atom_string(Atom, Texto),
+    atomic_list_concat(Palabras, ' ', Atom),
+    oracion(Palabras, Accion, []).

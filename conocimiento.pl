@@ -1,3 +1,186 @@
+verboMaquina(haga).
+verboMaquina(hacer).
+verboMaquina(haz).
+
+formasSuma(suma).
+formasSuma(sumar).
+formasSuma(sume).
+formasResta(resta).
+formasResta(restar).
+formasResta(reste).
+formasDivision(division).
+formasDivision(dividir).
+formasDivision(divide).
+formasMultiplicacion(multiplicacion).
+formasMultiplicacion(multiplicar).
+formasMultiplicacion(multiplique).
+formasModulo(modulo).
+formasPotencia(elevado).
+formasPotencia(eleva).
+formasPotencia(elevar).
+formasPotencia(eleve).
+formasPotencia(potencia).
+formasPotencia(potenciado).
+formasRaiz(raiz).
+formasRaizNumero(cuadrada).
+formasRaizNumero(cuadrado).
+
+formasCodigo(codifique).
+formasCodigo(codigo).
+formasCodigo(escriba).
+formasCodigo(escribe).
+
+chatbot() :-
+    write('Bienvenido'),
+    nl,
+    chatbotAux().
+
+chatbotAux() :-
+    write('¿Hay algo en lo que pueda ayudarte?'),
+    nl,
+    read_line_to_string(user_input, Entrada),
+    tokenizar(Entrada, Palabras),
+    analizarOperaciones(Palabras, Operacion),
+    analizarRealizar(Palabras, Realizar),
+    analizarCrear(Palabras, Crear),nl,
+    write(Operacion),nl,write(Realizar),nl,write(Crear),nl,
+    analizarAccionRealizar(Operacion, Realizar, Crear, Palabras).
+
+tokenizar(Texto, Palabras) :-
+    atom_string(Atom, Texto),
+    re_replace('[^a-zA-Z0-9 ]'/g, '', Atom, Resultado),  % Elimina caracteres no alfanuméricos
+    atomic_list_concat(Palabras, ' ', Resultado).
+
+analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasSuma(Palabra), !, Accion = suma.
+analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasResta(Palabra), !, Accion = resta.
+analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasDivision(Palabra), !, Accion = division.
+analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasMultiplicacion(Palabra), !, Accion = multiplicacion.
+analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasModulo(Palabra), !, Accion = modulo.
+analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasPotencia(Palabra), !, Accion = potencia.
+analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasRaiz(Palabra), !, member(PalabraAux, Palabras), formasRaizNumero(PalabraAux), !, Accion = raiz.
+analizarOperaciones(_, Accion) :- Accion = nada.
+
+analizarRealizar(Palabras, Accion) :- member(Palabra, Palabras), verboMaquina(Palabra), !, Accion = realizar.
+analizarRealizar(_, Accion) :- Accion = nada.
+
+analizarCrear(Palabras, Accion) :- member(Palabra, Palabras), formasCodigo(Palabra), !, Accion = crear.
+analizarCrear(_, Accion) :- Accion = nada.
+
+analizarAccionRealizar(suma, realizar, crear, Entrada) :- 
+    write('Claro, aqui tienes el codigo de la suma: '),
+    write(Entrada).
+
+analizarAccionRealizar(resta, realizar, crear, Entrada) :- 
+    write('Claro, aqui tienes el codigo de la resta: '),
+    write(Entrada).
+
+analizarAccionRealizar(division, realizar, crear, Entrada) :- 
+    write('Claro, aqui tienes el codigo de la division: '),
+    write(Entrada).
+
+analizarAccionRealizar(multiplicacion, realizar, crear, Entrada) :- 
+    write('Claro, aqui tienes el codigo de la multiplicacion: '),
+    write(Entrada).
+
+analizarAccionRealizar(modulo, realizar, crear, Entrada) :- 
+    write('Claro, aqui tienes el codigo del modulo: '),
+    write(Entrada).
+
+analizarAccionRealizar(potencia, realizar, crear, Entrada) :- 
+    write('Claro, aqui tienes el codigo del modulo: '),
+    write(Entrada).
+
+analizarAccionRealizar(raiz, realizar, crear, Entrada) :- 
+    write('Claro, aqui tienes el codigo de la raiz cuadrada: '),
+    write(Entrada).
+
+analizarAccionRealizar(suma, realizar, _, Entrada) :-
+    write('Claro, aqui tienes la respuesta de la suma: '),
+    write(Entrada).
+
+analizarAccionRealizar(resta, realizar, _, Entrada) :-
+    write('Claro, aqui tienes la respuesta de la resta: '),
+    write(Entrada).
+
+analizarAccionRealizar(multiplicacion, realizar, _, Entrada) :-
+    write('Claro, aqui tienes la respuesta de la multiplicacion: '),
+    write(Entrada).
+
+analizarAccionRealizar(division, realizar, _, Entrada) :-
+    write('Claro, aqui tienes la respuesta de la division: '),
+    write(Entrada).
+
+analizarAccionRealizar(modulo, realizar, _, Entrada) :-
+    write('Claro, aqui tienes la respuesta del modulo: '),
+    write(Entrada).
+
+analizarAccionRealizar(potencia, realizar, _, Entrada) :-
+    write('Claro, aqui tienes la respuesta de la potencia: '),
+    write(Entrada).
+
+analizarAccionRealizar(raiz, realizar, _, Entrada) :-
+    write('Claro, aqui tienes la respuesta de la raiz cuadrada: '),
+    write(Entrada).
+
+analizarAccionRealizar(suma, _, crear, Entrada) :-
+    write('Claro, aqui tienes el codigo de la suma: '),
+    write(Entrada).
+
+analizarAccionRealizar(resta, _, crear, Entrada) :-
+    write('Claro, aqui tienes el codigo de la resta: '),
+    write(Entrada).
+
+analizarAccionRealizar(multiplicacion, _, crear, Entrada) :-
+    write('Claro, aqui tienes el codigo de la resta: '),
+    write(Entrada).
+
+analizarAccionRealizar(division, _, crear, Entrada) :-
+    write('Claro, aqui tienes el codigo de la resta: '),
+    write(Entrada).
+
+analizarAccionRealizar(modulo, _, crear, Entrada) :-
+    write('Claro, aqui tienes el codigo de la resta: '),
+    write(Entrada).
+
+analizarAccionRealizar(potencia, _, crear, Entrada) :-
+    write('Claro, aqui tienes el codigo de la resta: '),
+    write(Entrada).
+
+analizarAccionRealizar(raiz, _, crear, Entrada) :-
+    write('Claro, aqui tienes el codigo de la resta: '),
+    write(Entrada).
+
+analizarAccionRealizar(suma, _, _, Entrada) :-
+    write('Claro, aqui tienes la respuesta de la suma: '),
+    write(Entrada).
+
+analizarAccionRealizar(resta, _, _, Entrada) :-
+    write('Claro, aqui tienes la respuesta de la resta: '),
+    write(Entrada).
+
+analizarAccionRealizar(multiplicacion, _, _, Entrada) :-
+    write('Claro, aqui tienes la respuesta de la multiplicacion: '),
+    write(Entrada).
+
+analizarAccionRealizar(division, _, _, Entrada) :-
+    write('Claro, aqui tienes la respuesta de la division: '),
+    write(Entrada).
+
+analizarAccionRealizar(modulo, _, _, Entrada) :-
+    write('Claro, aqui tienes la respuesta del modulo: '),
+    write(Entrada).
+
+analizarAccionRealizar(potencia, _, _, Entrada) :-
+    write('Claro, aqui tienes la respuesta de la potencia: '),
+    write(Entrada).
+
+analizarAccionRealizar(raiz, _, _, Entrada) :-
+    write('Claro, aqui tienes la respuesta de la raiz: '),
+    write(Entrada).
+
+analizarAccionRealizar(_, _, _, _) :-
+    write('Lo siento, pero no puedo resolver tu solicitud.').
+
 suma_lista([], 0).
 suma_lista([X|Xs], Suma) :-
     suma_lista(Xs, Resto),
