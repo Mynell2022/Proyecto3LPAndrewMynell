@@ -575,11 +575,12 @@ division_lista([X,Y|Resto], Division) :-
     Z is X / Y,  % Divide X por Y
     division_lista([Z|Resto], Division).  % Llama recursivamente a la función con el resultado y el resto de la lista
 
-modulo_lista([], 1).
-modulo_lista([X|Xs], Modulo) :-
-    modulo_lista(Xs, Resto),
-    integer(Resto),
-    Modulo is X mod Resto.
+modulo_lista([], 0).
+modulo_lista([X], X).
+modulo_lista([X, Y|Xs], Modulo) :-
+    Y \= 0,
+    Temp is X mod Y,
+    modulo_lista([Temp|Xs], Modulo).
 
 potencia_lista([X], X).
 potencia_lista([], 1).
