@@ -77,6 +77,27 @@ formasEliminar(borrar).
 formasEliminar(borre).
 formasEliminar(quitar).
 formasEliminar(quite).
+formasChiste(chiste).
+formasChiste(chistes).
+formasChiste(broma).
+formasChiste(bromas).
+formasEstudio(consejo).
+formasEstudio(consejos).
+formasEstudio(tecnica).
+formasEstudio(tecnicas).
+formasEstudioAux(estudio).
+formasEstudioAux(estudiar).
+formasEstudioAux(estudiante).
+formasEstudioAux(estudios).
+formasRefran(refran).
+formasRefran(refranes).
+formasRefran(dicho).
+formasRefran(dichos).
+formasDespedida(adios).
+formasDespedida(chao).
+formasDespedida(hasta).
+formasDespedidaAux(pronto).
+formasDespedidaAux(luego).
 
 formasCodigo(codifique).
 formasCodigo(codigo).
