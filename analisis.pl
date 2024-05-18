@@ -1,30 +1,3 @@
-:- consult('verboMaquina.pl').
-:- consult('formas.pl').
-:- consult('aritmetica.pl').
-:- consult('filtrado.pl').
-
-chatbot() :-
-    write('Bienvenido'),
-    nl,
-    chatbotAux().
-
-chatbotAux() :-
-    nl,
-    nl,
-    write('¿Hay algo en lo que pueda ayudarte?'),
-    nl,
-    read_line_to_string(user_input, Entrada),
-    tokenizar(Entrada, Palabras),
-    analizarOperaciones(Palabras, Operacion),
-    analizarRealizar(Palabras, Realizar),
-    analizarCrear(Palabras, Crear),nl,
-    analizarAccionRealizar(Operacion, Realizar, Crear, Entrada).
-
-tokenizar(Texto, Palabras) :-
-    atom_string(Atom, Texto),
-    re_replace('[^a-zA-Z0-9 ]'/g, '', Atom, Resultado),  % Elimina caracteres no alfanuméricos
-    atomic_list_concat(Palabras, ' ', Resultado).
-
 analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasSuma(Palabra), !, Accion = suma.
 analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasResta(Palabra), !, Accion = resta.
 analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasDivision(Palabra), !, Accion = division.
