@@ -85,9 +85,41 @@ eliminar_elemento([Y|Xs], X, [Y|Resultado]) :-
     X \= Y,
     eliminar_elemento(Xs, X, Resultado).
 
+palabraLarga(PalabrasClave, PalabraMasLarga) :-
+maplist(atom_length, PalabrasClave, Longitudes), % Calcula las longitudes de las palabras
+max_list(Longitudes, LongitudMaxima), % Encuentra la longitud máxima
+nth0(Indice, Longitudes, LongitudMaxima), % Encuentra el índice de la longitud máxima
+nth0(Indice, PalabrasClave, PalabraMasLarga).
+
+crear_formas(_,[]).
+crear_formas(PredicadoFormas,[PalabraClave|Resto]) :-
+    assertz((PredicadoFormas(PalabraClave) :- true)),
+    crear_formas(PredicadoFormas,Resto).
+
+generar_reglas(Predicado) :-
+    write(Predicado),
+    functor(Predicado, Nombre, _),
+    clause(Predicado, Cuerpo),
+    atomic_list_concat(PalabrasClave, '_', Nombre),
+    palabraLarga(PalabrasClave, PalabraAccion),
+    atomic_concat('formas', PalabraAccion, PredicadoFormas),
+    crear_formas(PredicadoFormas,PalabrasClave),
+    ReglaAnalizar = (analizarOperaciones(Palabras, Accion) :-
+        member(Palabra, Palabras),
+        atomic_concat('formas', PalabraAccion, PredicadoFormas),
+        PredicadoFormas(Palabra),
+        !,
+        Accion = PalabraAccion),
+    assertz(ReglaAnalizar),
+    ReglaGenerar = ((generarCodigo(PalabraAccion, NombreAtom) :-
+    Cuerpo)),
+    assertz(ReglaGenerar).
+
 insertar_predicados([]).
 insertar_predicados([Predicado|Resto]) :-
     assert(Predicado),
+    write(Predicado),
+    generar_reglas(Predicado),
     insertar_predicados(Resto).
 
 imprimir_predicados :-
