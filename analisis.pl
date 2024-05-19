@@ -1,3 +1,6 @@
+:- consult('generar.pl').
+
+
 analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasSuma(Palabra), !, Accion = suma.
 analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasResta(Palabra), !, Accion = resta.
 analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasDivision(Palabra), !, Accion = division.
@@ -15,6 +18,7 @@ analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasMaximo
 analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasIndice(Palabra), !, Accion = indice.
 analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasExiste(Palabra), !, Accion = existe.
 analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasEliminar(Palabra), !, Accion = elimina.
+analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasCodigo(Palabra), !, Accion = codifica.
 analizarOperaciones(_, Accion) :- Accion = nada.
 
 analizarRealizar(Palabras, Accion) :- member(Palabra, Palabras), verboMaquina(Palabra), !, Accion = realizar.
@@ -189,32 +193,51 @@ analizarAccionRealizar(elimina, realizar, _, Entrada) :-
     chatbotAux.
 
 analizarAccionRealizar(suma, _, crear, Entrada) :-
-    write('Claro, aqui tienes el codigo de la suma: '),
-    write(Entrada).
+    write('Claro, aqui tienes el codigo de la suma: '),nl,
+    generarCodigo(suma,Codigo),
+    write(Codigo),
+    chatbotAux.
 
 analizarAccionRealizar(resta, _, crear, Entrada) :-
-    write('Claro, aqui tienes el codigo de la resta: '),
-    write(Entrada).
+    write('Claro, aqui tienes el codigo de la resta: '),nl,
+    generarCodigo(resta,Codigo),
+    write(Codigo),
+    chatbotAux.
 
 analizarAccionRealizar(multiplicacion, _, crear, Entrada) :-
-    write('Claro, aqui tienes el codigo de la resta: '),
-    write(Entrada).
+    write('Claro, aqui tienes el codigo de la multiplicacion: '),nl,
+    generarCodigo(multiplicacion,Codigo),
+    write(Codigo),
+    chatbotAux.
 
 analizarAccionRealizar(division, _, crear, Entrada) :-
-    write('Claro, aqui tienes el codigo de la resta: '),
-    write(Entrada).
+    write('Claro, aqui tienes el codigo de la division: '),nl,
+    generarCodigo(division,Codigo),
+    write(Codigo),
+    chatbotAux.
 
 analizarAccionRealizar(modulo, _, crear, Entrada) :-
-    write('Claro, aqui tienes el codigo de la resta: '),
-    write(Entrada).
+    generarCodigo(modulo,Codigo),
+    write('Claro, aqui tienes el codigo de la modulo: '),nl,
+    write(Codigo),
+    chatbotAux.
 
 analizarAccionRealizar(potencia, _, crear, Entrada) :-
-    write('Claro, aqui tienes el codigo de la resta: '),
-    write(Entrada).
+    write('Claro, aqui tienes el codigo de la potencia: '),nl,
+    generarCodigo(potencia,Codigo),
+    write(Codigo),
+    chatbotAux.
 
 analizarAccionRealizar(raiz, _, crear, Entrada) :-
-    write('Claro, aqui tienes el codigo de la resta: '),
-    write(Entrada).
+    write('Claro, aqui tienes el codigo de la raiz: '),nl,
+    generarCodigo(raiz,Codigo),
+    write(Codigo),
+    chatbotAux.
+
+analizarAccionRealizar(codifica, _, crear, Entrada) :-
+    write('Claro, aqui tienes el codigo mas cercano en nuestro conocimiento: '),nl,
+    write(Entrada),
+    chatbotAux.
 
 analizarAccionRealizar(suma, _, _, Entrada) :-
     !,
