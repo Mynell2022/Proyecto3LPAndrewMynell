@@ -18,6 +18,11 @@ analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasMaximo
 analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasIndice(Palabra), !, Accion = indice.
 analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasExiste(Palabra), !, Accion = existe.
 analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasEliminar(Palabra), !, Accion = elimina.
+analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasChiste(Palabra), !, Accion = chiste.
+analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasEstudio(Palabra), member(PalabraAux, Palabras), formasEstudioAux(PalabraAux), !, Accion = estudio.
+analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasRefran(Palabra), !, Accion = refran.
+analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasDespedida(Palabra), !, Accion = despedida.
+analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasDespedida(Palabra), member(PalabraAux, Palabras), formasDespedidaAux(PalabraAux), !, Accion = despedida.
 analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasCodigo(Palabra), !, Accion = codifica.
 analizarOperaciones(_, Accion) :- Accion = nada.
 
@@ -374,5 +379,31 @@ analizarAccionRealizar(elimina, _, _, Entrada) :-
     write(Salida),
     chatbotAux.
 
+analizarAccionRealizar(estudio, _, _, _) :-
+    write('Claro, aqui te muestro una tecnica que te puede servir: '),
+    nl,
+    random_between(1, 10, Opcion),
+    consejosAleatorios(Opcion),
+    chatbotAux.
+
+analizarAccionRealizar(chiste, _, _, _) :-
+    write('Claro, aqui te muestro un chiste que de seguro te hara: '),
+    nl,
+    random_between(1, 10, Opcion),
+    chisteAleatorio(Opcion),
+    chatbotAux.
+
+analizarAccionRealizar(refran, _, _, _) :-
+    write('Claro, aqui te muestro un refran que puedes utilizar: '),
+    nl,
+    random_between(1, 10, Opcion),
+    refranesAleatorios(Opcion),
+    chatbotAux.
+
+analizarAccionRealizar(despedida, _, _, _) :-
+    write('Hasta pronto joven'),
+    halt.
+
 analizarAccionRealizar(_, _, _, _) :-
-    write('Lo siento, pero no puedo resolver tu solicitud.').
+    write('Lo siento, pero no puedo resolver tu solicitud.'),
+    chatbotAux.

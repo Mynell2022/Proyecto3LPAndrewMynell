@@ -1,9 +1,10 @@
-:- consult('verboMaquina.pl').
 :- consult('formas.pl').
 :- consult('aritmetica.pl').
 :- consult('filtrado.pl').
 :- consult('analisis.pl').
-
+:- consult('temasTriviales.pl').
+:- consult('verboMaquina.pl').
+:- consult('predicados.pl').
 
 chatbot() :-
     write('Bienvenido'),
@@ -20,7 +21,6 @@ chatbotAux() :-
     analizarOperaciones(Palabras, Operacion),
     analizarRealizar(Palabras, Realizar),
     analizarCrear(Palabras, Crear),nl,
-    write(Operacion),nl,write(Realizar),nl,write(Crear),nl,
     analizarAccionRealizar(Operacion, Realizar, Crear, Entrada).
 
 tokenizar(Texto, Palabras) :-
