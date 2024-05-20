@@ -17,7 +17,6 @@ chatbotAux:-
     write('¿Hay algo en lo que pueda ayudarte?'),
     nl,
     read_line_to_string(user_input, Entrada),
-    write(Entrada),
     tokenizar(Entrada, Palabras),
     analizarOperaciones(Palabras, Operacion),
     analizarRealizar(Palabras, Realizar),

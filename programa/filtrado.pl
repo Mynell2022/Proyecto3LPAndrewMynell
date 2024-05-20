@@ -40,7 +40,7 @@ transformarStringAListaAux(String, NuevaLista) :-
     memberchk('[', ListaCaracteres),
     memberchk(']', ListaCaracteres),
     memberchk(',', ListaCaracteres),
-    term_string(NuevaLista, String).
+    catch(term_string(NuevaLista, String), _, fail).
 
 transformarStringAListaAux(_, []).
 
