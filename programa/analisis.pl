@@ -180,8 +180,15 @@ analizarAccionRealizar(indice, realizar, _, Entrada) :-
     write(Salida).
 
 analizarAccionRealizar(existe, realizar, _, Entrada) :-
-    filtrarListas(Entrada, Salida),
-    write(Salida).
+    filtrarListas(Entrada, L),
+    nth0(0, L, Lista),
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    IndiceStr = SubMatch.1,
+    atom_number(IndiceStr, Elemento),nl,
+    (   existe_elemento(Lista, Elemento)
+    ->  write("Si que existe "), write(Elemento), write(" en la lista"), nl
+    ;   write("No existe el elemento "), write(Elemento), write(" en la lista"), nl
+    ).
 
 analizarAccionRealizar(elimina, realizar, _, Entrada) :-
     filtrarListas(Entrada, Salida),
@@ -343,8 +350,15 @@ analizarAccionRealizar(indice, _, _, Entrada) :-
     write(Salida).
 
 analizarAccionRealizar(existe, _, _, Entrada) :-
-    filtrarListas(Entrada, Salida),
-    write(Salida).
+    filtrarListas(Entrada, L),
+    nth0(0, L, Lista),
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    IndiceStr = SubMatch.1,
+    atom_number(IndiceStr, Elemento),nl,
+    (   existe_elemento(Lista, Elemento)
+    ->  write("Si que existe "), write(Elemento), write(" en la lista"), nl
+    ;   write("No existe el elemento "), write(Elemento), write(" en la lista"), nl
+    ).
 
 analizarAccionRealizar(elimina, _, _, Entrada) :-
     filtrarListas(Entrada, L),
