@@ -41,9 +41,10 @@ longitud_lista([_|Xs], Longitud) :-
     longitud_lista(Xs, Resto),
     Longitud is Resto + 1.
 
-concatenacion_listas([], Lista, Lista).
-concatenacion_listas([X|Xs], Lista2, [X|Resultado]) :-
-    concatenacion_listas(Xs, Lista2, Resultado).
+concatenacion_listas([], []).
+concatenacion_listas([X|Xs], Lista) :-
+    concatenacion_listas(Xs, Resultado),
+    append(X, Resultado, Lista).
 
 reverso_lista(Lista, Reverso) :-
     reverso_auxiliar(Lista, [], Reverso).
@@ -91,40 +92,37 @@ max_list(Longitudes, LongitudMaxima), % Encuentra la longitud máxima
 nth0(Indice, Longitudes, LongitudMaxima), % Encuentra el índice de la longitud máxima
 nth0(Indice, PalabrasClave, PalabraMasLarga).
 
-crear_formas(_,[]).
-crear_formas(PredicadoFormas,[PalabraClave|Resto]) :-
-    assertz((PredicadoFormas(PalabraClave) :- true)),
-    crear_formas(PredicadoFormas,Resto).
+imprimirPredicados() :-
+    open('predicados.pl', read, Stream),
+    imprimirPredicadosAux(Stream),
+    open('verboMaquina.pl', read, Stream2),
+    imprimirPredicadosAux(Stream2),
+    open('formas.pl', read, Stream3),
+    imprimirPredicadosAux(Stream3).
 
-generar_reglas(Predicado) :-
-    write(Predicado),
-    functor(Predicado, Nombre, _),
-    clause(Predicado, Cuerpo),
-    atomic_list_concat(PalabrasClave, '_', Nombre),
-    palabraLarga(PalabrasClave, PalabraAccion),
-    atomic_concat('formas', PalabraAccion, PredicadoFormas),
-    crear_formas(PredicadoFormas,PalabrasClave),
-    ReglaAnalizar = (analizarOperaciones(Palabras, Accion) :-
-        member(Palabra, Palabras),
-        atomic_concat('formas', PalabraAccion, PredicadoFormas),
-        PredicadoFormas(Palabra),
-        !,
-        Accion = PalabraAccion),
-    assertz(ReglaAnalizar),
-    ReglaGenerar = ((generarCodigo(PalabraAccion, NombreAtom) :-
-    Cuerpo)),
-    assertz(ReglaGenerar).
+imprimirPredicadosAux(Stream) :-
+    read(Stream, Linea),
+    (   at_end_of_stream(Stream)
+    ->  true
+    ;   write(Linea), nl,
+        imprimirPredicadosAux(Stream)
+    ).
 
-insertar_predicados([]).
-insertar_predicados([Predicado|Resto]) :-
+crearPredicado(Predicados) :-
+    catch(crearPredicadoAux(Predicados), _, fail).
+
+crearPredicado(_) :-
+    write('Estas intentando definir un nuevo predicado, pero este es estatico y no lo puedo redefinir.').
+
+crearPredicadoAux([]) :-
+    write('El predicado que escribiste no tiene la estructura correcta.').
+
+crearPredicadoAux(Predicados) :-
+    nth0(0, Predicados, Predicado),
     assert(Predicado),
-    write(Predicado),
-    generar_reglas(Predicado),
-    insertar_predicados(Resto).
-
-imprimir_predicados :-
-    current_predicate(_, Predicado),
-    functor(Predicado, Nombre, _),
-    write(Nombre), nl,
-    fail.
-imprimir_predicados :- !.
+    term_to_atom(Predicado, Cadena),
+    atom_concat(Cadena, '.\n', PredicadoString),
+    append('predicados.pl'),
+    write(PredicadoString),
+    told,
+    write('He guardado el predicado.').

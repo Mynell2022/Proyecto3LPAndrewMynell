@@ -47,3 +47,24 @@ transformarStringAListaAux(_, []).
 
 agregarListaCreada([], NuevaLista, Lista) :- !, Lista = NuevaLista.
 agregarListaCreada(ListaEntrada, NuevaLista, Lista) :- Lista = [ListaEntrada|NuevaLista].
+
+filtrarPredicados(String, Predicados) :-
+    split_string(String, " ", "", ListaSubcadenas),
+    transformarStringAPredicado(ListaSubcadenas, Predicados).
+
+transformarStringAPredicado([], []).
+transformarStringAPredicado([Predicado|Cola], Lista) :-
+    transformarStringAPredicado(Cola, NuevaLista),
+    transformarStringAPredicadoAux(Predicado, PredicadoEntrada),
+    agregarListaCreada(PredicadoEntrada, NuevaLista, Lista).
+
+transformarStringAPredicadoAux(String, NuevoPredicado) :- 
+    atom_chars(String, ListaCaracteres),
+    memberchk('(', ListaCaracteres),
+    memberchk(')', ListaCaracteres),
+    memberchk('.', ListaCaracteres),
+    term_string(NuevoPredicado, String).
+
+transformarStringAPredicadoAux(_, []).
+
+is_empty([]).

@@ -24,6 +24,8 @@ analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasRefran
 analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasDespedida(Palabra), !, Accion = despedida.
 analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasDespedida(Palabra), member(PalabraAux, Palabras), formasDespedidaAux(PalabraAux), !, Accion = despedida.
 analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasCodigo(Palabra), !, Accion = codifica.
+analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasPredicado(Palabra), member(PalabraAux, Palabras), formasImprimir(PalabraAux), !, Accion = imprimirPredicado.
+analizarOperaciones(Palabras, Accion) :- member(Palabra, Palabras), formasPredicado(Palabra), member(PalabraAux, Palabras), formasGuardarPredicado(PalabraAux), !, Accion = guardarPredicado.
 analizarOperaciones(_, Accion) :- Accion = nada.
 
 analizarRealizar(Palabras, Accion) :- member(Palabra, Palabras), verboMaquina(Palabra), !, Accion = realizar.
@@ -130,6 +132,7 @@ analizarAccionRealizar(longitud, realizar, _, Entrada) :-
 
 analizarAccionRealizar(concatena, realizar, _, Entrada) :-
     filtrarListas(Entrada, Salida),
+    \+ is_empty(Salida),
     concatenacion_listas(Salida, Cantidad),
     write('Claro, el resultado de la concatenacion es '),
     write(Cantidad),
@@ -197,43 +200,43 @@ analizarAccionRealizar(elimina, realizar, _, Entrada) :-
     write(Salida),
     chatbotAux.
 
-analizarAccionRealizar(suma, _, crear, Entrada) :-
+analizarAccionRealizar(suma, _, crear, _) :-
     write('Claro, aqui tienes el codigo de la suma: '),nl,
     generarCodigo(suma,Codigo),
     write(Codigo),
     chatbotAux.
 
-analizarAccionRealizar(resta, _, crear, Entrada) :-
+analizarAccionRealizar(resta, _, crear, _) :-
     write('Claro, aqui tienes el codigo de la resta: '),nl,
     generarCodigo(resta,Codigo),
     write(Codigo),
     chatbotAux.
 
-analizarAccionRealizar(multiplicacion, _, crear, Entrada) :-
+analizarAccionRealizar(multiplicacion, _, crear, _) :-
     write('Claro, aqui tienes el codigo de la multiplicacion: '),nl,
     generarCodigo(multiplicacion,Codigo),
     write(Codigo),
     chatbotAux.
 
-analizarAccionRealizar(division, _, crear, Entrada) :-
+analizarAccionRealizar(division, _, crear, _) :-
     write('Claro, aqui tienes el codigo de la division: '),nl,
     generarCodigo(division,Codigo),
     write(Codigo),
     chatbotAux.
 
-analizarAccionRealizar(modulo, _, crear, Entrada) :-
+analizarAccionRealizar(modulo, _, crear, _) :-
     generarCodigo(modulo,Codigo),
     write('Claro, aqui tienes el codigo de la modulo: '),nl,
     write(Codigo),
     chatbotAux.
 
-analizarAccionRealizar(potencia, _, crear, Entrada) :-
+analizarAccionRealizar(potencia, _, crear, _) :-
     write('Claro, aqui tienes el codigo de la potencia: '),nl,
     generarCodigo(potencia,Codigo),
     write(Codigo),
     chatbotAux.
 
-analizarAccionRealizar(raiz, _, crear, Entrada) :-
+analizarAccionRealizar(raiz, _, crear, _) :-
     write('Claro, aqui tienes el codigo de la raiz: '),nl,
     generarCodigo(raiz,Codigo),
     write(Codigo),
@@ -312,6 +315,7 @@ analizarAccionRealizar(longitud, _, _, Entrada) :-
 
 analizarAccionRealizar(concatena, _, _, Entrada) :-
     filtrarListas(Entrada, Salida),
+    \+ is_empty(Salida),
     concatenacion_listas(Salida, Cantidad),
     write('Claro, el resultado de la concatenacion es '),
     write(Cantidad),
@@ -379,6 +383,11 @@ analizarAccionRealizar(elimina, _, _, Entrada) :-
     write(Salida),
     chatbotAux.
 
+analizarAccionRealizar(guardarPredicado, _, _, Entrada) :-
+    filtrarPredicados(Entrada, Predicados),
+    crearPredicado(Predicados),
+    chatbotAux.
+
 analizarAccionRealizar(estudio, _, _, _) :-
     write('Claro, aqui te muestro una tecnica que te puede servir: '),
     nl,
@@ -400,9 +409,14 @@ analizarAccionRealizar(refran, _, _, _) :-
     refranesAleatorios(Opcion),
     chatbotAux.
 
+analizarAccionRealizar(imprimirPredicado, _, _ , _) :-
+    write('Aqui estan todos los predicados definidos: '),
+    nl,
+    imprimirPredicados,
+    chatbotAux.
+
 analizarAccionRealizar(despedida, _, _, _) :-
-    write('Hasta pronto joven'),
-    halt.
+    write('Hasta pronto joven').
 
 analizarAccionRealizar(_, _, _, _) :-
     write('Lo siento, pero no puedo resolver tu solicitud.'),
