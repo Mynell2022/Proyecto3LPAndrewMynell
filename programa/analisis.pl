@@ -456,8 +456,15 @@ analizarAccionRealizar(indice, realizar, _, Entrada) :-
 %Restricciones: Los numeros deben estar bien escritos y las listas tambien.
 %Objetivo: Dice si existe un elemento.
 analizarAccionRealizar(existe, realizar, _, Entrada) :-
-    filtrarListas(Entrada, Salida),
-    write(Salida).
+    filtrarListas(Entrada, L),
+    nth0(0, L, Lista),
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    IndiceStr = SubMatch.1,
+    atom_number(IndiceStr, Elemento),nl,
+    (   existe_elemento(Lista, Elemento)
+    ->  write("Si que existe "), write(Elemento), write(" en la lista"), nl
+    ;   write("No existe el elemento "), write(Elemento), write(" en la lista"), nl
+    ).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -722,8 +729,15 @@ analizarAccionRealizar(indice, _, _, Entrada) :-
 %Restricciones: Los numeros deben estar bien escritos y las listas tambien.
 %Objetivo: Indica si existe el elemento en la lista.
 analizarAccionRealizar(existe, _, _, Entrada) :-
-    filtrarListas(Entrada, Salida),
-    write(Salida).
+    filtrarListas(Entrada, L),
+    nth0(0, L, Lista),
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    IndiceStr = SubMatch.1,
+    atom_number(IndiceStr, Elemento),nl,
+    (   existe_elemento(Lista, Elemento)
+    ->  write("Si que existe "), write(Elemento), write(" en la lista"), nl
+    ;   write("No existe el elemento "), write(Elemento), write(" en la lista"), nl
+    ).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
