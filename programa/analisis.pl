@@ -373,13 +373,13 @@ analizarAccionRealizar(minimo, _, _, Entrada) :-
     chatbotAux.
 
 analizarAccionRealizar(indice, _, _, Entrada) :-
-    write("Claro, el elemento es "),
     filtrarListas(Entrada, L),
     nth0(0, L, Lista),
     re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
     IndiceStr = SubMatch.1,
     atom_number(IndiceStr, Indice),
     nesimo_elemento(Lista, Indice, Salida),
+    write("Claro, el elemento es "),
     write(Salida),
     chatbotAux.
 
@@ -389,7 +389,13 @@ analizarAccionRealizar(existe, _, _, Entrada) :-
     chatbotAux.
 
 analizarAccionRealizar(elimina, _, _, Entrada) :-
-    filtrarListas(Entrada, Salida),
+    filtrarListas(Entrada, L),
+    nth0(0, L, Lista),
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    IndiceStr = SubMatch.1,
+    atom_number(IndiceStr, Elemento),
+    eliminar_elemento(Lista, Elemento, Salida),
+    write("Claro, la lista queda de la siguiente manera "),
     write(Salida),
     chatbotAux.
 
@@ -406,7 +412,7 @@ analizarAccionRealizar(estudio, _, _, _) :-
     chatbotAux.
 
 analizarAccionRealizar(chiste, _, _, _) :-
-    write('Claro, aqui te muestro un chiste que de seguro te hara: '),
+    write('Claro, aqui te muestro un chiste que de seguro te hara reir: '),
     nl,
     random_between(1, 10, Opcion),
     chisteAleatorio(Opcion),

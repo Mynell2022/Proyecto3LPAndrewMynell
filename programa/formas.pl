@@ -73,10 +73,13 @@ formasExiste(encuentre).
 formasExiste(esta).
 formasEliminar(elimine).
 formasEliminar(elimina).
+formasEliminar(eliminar).
 formasEliminar(borrar).
 formasEliminar(borre).
+formasEliminar(borra).
 formasEliminar(quitar).
 formasEliminar(quite).
+formasEliminar(quita).
 formasChiste(chiste).
 formasChiste(chistes).
 formasChiste(broma).
