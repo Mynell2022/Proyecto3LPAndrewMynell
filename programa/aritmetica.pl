@@ -3,10 +3,10 @@ suma_lista([X|Xs], Suma) :-
     suma_lista(Xs, Resto),
     Suma is X + Resto.
 
-resta_lista([], 0).
-resta_lista([X|Xs], Resta) :-
-    resta_lista(Xs, Resto),
-    Resta is X - Resto.
+resta_lista([], Resta, Resta).
+resta_lista([X|Xs], Acum, Resta) :-
+    NuevoAcum is Acum - X,
+    resta_lista(Xs, NuevoAcum, Resta).
 
 multiplicacion_lista([], 1).
 multiplicacion_lista([X|Xs], Producto) :-

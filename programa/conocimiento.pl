@@ -11,17 +11,20 @@ chatbot() :-
     nl,
     chatbotAux().
 
-chatbotAux() :-
+chatbotAux:-
     nl,
     nl,
     write('¿Hay algo en lo que pueda ayudarte?'),
     nl,
     read_line_to_string(user_input, Entrada),
+    write(Entrada),
     tokenizar(Entrada, Palabras),
     analizarOperaciones(Palabras, Operacion),
     analizarRealizar(Palabras, Realizar),
-    analizarCrear(Palabras, Crear),nl,
-    analizarAccionRealizar(Operacion, Realizar, Crear, Entrada).
+    analizarCrear(Palabras, Crear),
+    nl,
+    analizarAccionRealizar(Operacion, Realizar, Crear, Entrada),
+    (Operacion == despedida -> true; chatbotAux).
 
 tokenizar(Texto, Palabras) :-
     atom_string(Atom, Texto),

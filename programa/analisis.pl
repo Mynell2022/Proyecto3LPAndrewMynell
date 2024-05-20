@@ -37,8 +37,7 @@ analizarCrear(_, Accion) :- Accion = nada.
 analizarAccionRealizar(suma, realizar, crear, Entrada) :- 
     !,
     write('Claro, aqui tienes el codigo de la suma: '),
-    write(Entrada),
-    chatbotAux.
+    write(Entrada).
 
 analizarAccionRealizar(resta, realizar, crear, Entrada) :- 
     write('Claro, aqui tienes el codigo de la resta: '),
@@ -69,48 +68,42 @@ analizarAccionRealizar(suma, realizar, _, Entrada) :-
     filtrarNumeros(Entrada, Salida),
     suma_lista(Salida, Resultado),
     write('Claro, el resultado de la suma es '),
-    write(Resultado),
-    chatbotAux.
+    write(Resultado).
 
 analizarAccionRealizar(resta, realizar, _, Entrada) :-
     !,
     filtrarNumeros(Entrada, Salida),
-    resta_lista(Salida, Resultado),
+    resta_lista(Salida, 0, Resultado),
     write('Claro, el resultado de la resta es '),
-    write(Resultado),
-    chatbotAux.
+    write(Resultado).
 
 analizarAccionRealizar(multiplicacion, realizar, _, Entrada) :-
     !,
     filtrarNumeros(Entrada, Salida),
     multiplicacion_lista(Salida, Resultado),
     write('Claro, el resultado de la multiplicacion es '),
-    write(Resultado),
-    chatbotAux.
+    write(Resultado).
 
 analizarAccionRealizar(division, realizar, _, Entrada) :-
     !,
     filtrarNumeros(Entrada, Salida),
     division_lista(Salida, Resultado),
     write('Claro, el resultado de la division es '),
-    write(Resultado),
-    chatbotAux.
+    write(Resultado).
 
 analizarAccionRealizar(modulo, realizar, _, Entrada) :-
     !,
     filtrarNumeros(Entrada, Salida),
     modulo_lista(Salida, Resultado),
     write('Claro, el resultado del modulo es '),
-    write(Resultado),
-    chatbotAux.
+    write(Resultado).
 
 analizarAccionRealizar(potencia, realizar, _, Entrada) :-
     !,
     filtrarNumeros(Entrada, Salida),
     potencia_lista(Salida, Resultado),
     write('Claro, el resultado de la potencia es '),
-    write(Resultado),
-    chatbotAux.
+    write(Resultado).
 
 analizarAccionRealizar(raiz, realizar, _, Entrada) :-
     !,
@@ -118,8 +111,7 @@ analizarAccionRealizar(raiz, realizar, _, Entrada) :-
     nth0(0, Salida, Numero),
     raiz_cuadrada(Numero, Resultado),
     write('Claro, el resultado de la raiz cuadrada es '),
-    write(Resultado),
-    chatbotAux.
+    write(Resultado).
 
 analizarAccionRealizar(longitud, realizar, _, Entrada) :-
     filtrarListas(Entrada, Salida),
@@ -127,8 +119,7 @@ analizarAccionRealizar(longitud, realizar, _, Entrada) :-
     longitud_lista(Lista, Cantidad),
     write('Claro, la longitud de la lista es '),
     write(Cantidad),
-    nl,
-    chatbotAux.
+    nl.
 
 analizarAccionRealizar(concatena, realizar, _, Entrada) :-
     filtrarListas(Entrada, Salida),
@@ -136,8 +127,7 @@ analizarAccionRealizar(concatena, realizar, _, Entrada) :-
     concatenacion_listas(Salida, Cantidad),
     write('Claro, el resultado de la concatenacion es '),
     write(Cantidad),
-    nl,
-    chatbotAux.
+    nl.
 
 analizarAccionRealizar(reverso, realizar, _, Entrada) :-
     filtrarListas(Entrada, Salida),
@@ -145,8 +135,7 @@ analizarAccionRealizar(reverso, realizar, _, Entrada) :-
     reverso_lista(Lista, Cantidad),
     write('Claro, la lista inversa es '),
     write(Cantidad),
-    nl,
-    chatbotAux.
+    nl.
 
 analizarAccionRealizar(primero, realizar, _, Entrada) :-
     filtrarListas(Entrada, Salida),
@@ -154,8 +143,7 @@ analizarAccionRealizar(primero, realizar, _, Entrada) :-
     primer_elemento(Lista, Cantidad),
     write('Claro, el primer elemento es '),
     write(Cantidad),
-    nl,
-    chatbotAux.
+    nl.
 
 analizarAccionRealizar(ultimo, realizar, _, Entrada) :-
     filtrarListas(Entrada, Salida),
@@ -163,8 +151,7 @@ analizarAccionRealizar(ultimo, realizar, _, Entrada) :-
     ultimo_elemento(Lista, Cantidad),
     write('Claro, el ultimo elemento es '),
     write(Cantidad),
-    nl,
-    chatbotAux.
+    nl.
 
 analizarAccionRealizar(maximo, realizar, _, Entrada) :-
     filtrarListas(Entrada, Salida),
@@ -172,8 +159,7 @@ analizarAccionRealizar(maximo, realizar, _, Entrada) :-
     maximo_lista(Lista, Cantidad),
     write('Claro, el elemento maximo es '),
     write(Cantidad),
-    nl,
-    chatbotAux.
+    nl.
 
 analizarAccionRealizar(minimo, realizar, _, Entrada) :-
     filtrarListas(Entrada, Salida),
@@ -181,8 +167,7 @@ analizarAccionRealizar(minimo, realizar, _, Entrada) :-
     minimo_lista(Lista, Cantidad),
     write('Claro, el elemento minimo es '),
     write(Cantidad),
-    nl,
-    chatbotAux.
+    nl.
 
 analizarAccionRealizar(indice, realizar, _, Entrada) :-
     write("Claro, el elemento es "),
@@ -192,113 +177,96 @@ analizarAccionRealizar(indice, realizar, _, Entrada) :-
     IndiceStr = SubMatch.1,
     atom_number(IndiceStr, Indice),
     nesimo_elemento(Lista, Indice, Salida),
-    write(Salida),
-    chatbotAux.
+    write(Salida).
 
 analizarAccionRealizar(existe, realizar, _, Entrada) :-
     filtrarListas(Entrada, Salida),
-    write(Salida),
-    chatbotAux.
+    write(Salida).
 
 analizarAccionRealizar(elimina, realizar, _, Entrada) :-
     filtrarListas(Entrada, Salida),
-    write(Salida),
-    chatbotAux.
+    write(Salida).
 
 analizarAccionRealizar(suma, _, crear, _) :-
     write('Claro, aqui tienes el codigo de la suma: '),nl,
     generarCodigo(suma,Codigo),
-    write(Codigo),
-    chatbotAux.
+    write(Codigo).
 
 analizarAccionRealizar(resta, _, crear, _) :-
     write('Claro, aqui tienes el codigo de la resta: '),nl,
-    generarCodigo(resta,Codigo),
-    write(Codigo),
-    chatbotAux.
+    generarCodigo(resta, Codigo),
+    write(Codigo).
 
 analizarAccionRealizar(multiplicacion, _, crear, _) :-
     write('Claro, aqui tienes el codigo de la multiplicacion: '),nl,
     generarCodigo(multiplicacion,Codigo),
-    write(Codigo),
-    chatbotAux.
+    write(Codigo).
 
 analizarAccionRealizar(division, _, crear, _) :-
     write('Claro, aqui tienes el codigo de la division: '),nl,
     generarCodigo(division,Codigo),
-    write(Codigo),
-    chatbotAux.
+    write(Codigo).
 
 analizarAccionRealizar(modulo, _, crear, _) :-
     generarCodigo(modulo,Codigo),
     write('Claro, aqui tienes el codigo de la modulo: '),nl,
-    write(Codigo),
-    chatbotAux.
+    write(Codigo).
 
 analizarAccionRealizar(potencia, _, crear, _) :-
     write('Claro, aqui tienes el codigo de la potencia: '),nl,
     generarCodigo(potencia,Codigo),
-    write(Codigo),
-    chatbotAux.
-
+    write(Codigo).
 analizarAccionRealizar(raiz, _, crear, _) :-
     write('Claro, aqui tienes el codigo de la raiz: '),nl,
     generarCodigo(raiz,Codigo),
-    write(Codigo),
-    chatbotAux.
+    write(Codigo).
 
 analizarAccionRealizar(codifica, _, crear, Entrada) :-
     write('Claro, aqui tienes el codigo mas cercano en nuestro conocimiento: '),nl,
-    write(Entrada),
-    chatbotAux.
+    write(Entrada).
 
 analizarAccionRealizar(suma, _, _, Entrada) :-
     !,
     filtrarNumeros(Entrada, Salida),
     suma_lista(Salida, Resultado),
     write('Claro, el resultado de la suma es '),
-    write(Resultado),
-    chatbotAux.
+    write(Resultado).
 
 analizarAccionRealizar(resta, _, _, Entrada) :-
     !,
     filtrarNumeros(Entrada, Salida),
-    resta_lista(Salida, Resultado),
+    [Numero|SalidaAux] = Salida,
+    resta_lista(SalidaAux, Numero, Resultado),
     write('Claro, el resultado de la resta es '),
-    write(Resultado),
-    chatbotAux.
+    write(Resultado).
 
 analizarAccionRealizar(multiplicacion, _, _, Entrada) :-
     !,
     filtrarNumeros(Entrada, Salida),
     multiplicacion_lista(Salida, Resultado),
     write('Claro, el resultado de la multiplicacion es '),
-    write(Resultado),
-    chatbotAux.
+    write(Resultado).
 
 analizarAccionRealizar(division, _, _, Entrada) :-
     !,
     filtrarNumeros(Entrada, Salida),
     division_lista(Salida, Resultado),
     write('Claro, el resultado de la division es '),
-    write(Resultado),
-    chatbotAux.
+    write(Resultado).
 
 analizarAccionRealizar(modulo, _, _, Entrada) :-
     !,
     filtrarNumeros(Entrada, Salida),
     modulo_lista(Salida, Resultado),
     write('Claro, el resultado del modulo es '),
-    write(Resultado),
-    chatbotAux.
+    write(Resultado).
 
 analizarAccionRealizar(potencia, _, _, Entrada) :-
     !,
     filtrarNumeros(Entrada, Salida),
     potencia_lista(Salida, Resultado),
     write('Claro, el resultado de la potencia es '),
-    write(Resultado),
-    chatbotAux.
+    write(Resultado).
 
 analizarAccionRealizar(raiz, _, _, Entrada) :-
     !,
@@ -306,8 +274,7 @@ analizarAccionRealizar(raiz, _, _, Entrada) :-
     nth0(0, Salida, Numero),
     raiz_cuadrada(Numero, Resultado),
     write('Claro, el resultado de la raiz cuadrada es '),
-    write(Resultado),
-    chatbotAux.
+    write(Resultado).
 
 analizarAccionRealizar(longitud, _, _, Entrada) :-
     filtrarListas(Entrada, Salida),
@@ -315,8 +282,7 @@ analizarAccionRealizar(longitud, _, _, Entrada) :-
     longitud_lista(Lista, Cantidad),
     write('Claro, la longitud de la lista es '),
     write(Cantidad),
-    nl,
-    chatbotAux.
+    nl.
 
 analizarAccionRealizar(concatena, _, _, Entrada) :-
     filtrarListas(Entrada, Salida),
@@ -324,8 +290,7 @@ analizarAccionRealizar(concatena, _, _, Entrada) :-
     concatenacion_listas(Salida, Cantidad),
     write('Claro, el resultado de la concatenacion es '),
     write(Cantidad),
-    nl,
-    chatbotAux.
+    nl.
 
 analizarAccionRealizar(reverso, _, _, Entrada) :-
     filtrarListas(Entrada, Salida),
@@ -333,8 +298,7 @@ analizarAccionRealizar(reverso, _, _, Entrada) :-
     reverso_lista(Lista, Cantidad),
     write('Claro, la lista inversa es '),
     write(Cantidad),
-    nl,
-    chatbotAux.
+    nl.
 
 analizarAccionRealizar(primero, _, _, Entrada) :-
     filtrarListas(Entrada, Salida),
@@ -342,8 +306,7 @@ analizarAccionRealizar(primero, _, _, Entrada) :-
     primer_elemento(Lista, Cantidad),
     write('Claro, el primer elemento es '),
     write(Cantidad),
-    nl,
-    chatbotAux.
+    nl.
 
 analizarAccionRealizar(ultimo, _, _, Entrada) :-
     filtrarListas(Entrada, Salida),
@@ -351,8 +314,7 @@ analizarAccionRealizar(ultimo, _, _, Entrada) :-
     ultimo_elemento(Lista, Cantidad),
     write('Claro, el ultimo elemento es '),
     write(Cantidad),
-    nl,
-    chatbotAux.
+    nl.
 
 analizarAccionRealizar(maximo, _, _, Entrada) :-
     filtrarListas(Entrada, Salida),
@@ -360,8 +322,7 @@ analizarAccionRealizar(maximo, _, _, Entrada) :-
     maximo_lista(Lista, Cantidad),
     write('Claro, el elemento maximo es '),
     write(Cantidad),
-    nl,
-    chatbotAux.
+    nl.
 
 analizarAccionRealizar(minimo, _, _, Entrada) :-
     filtrarListas(Entrada, Salida),
@@ -369,8 +330,7 @@ analizarAccionRealizar(minimo, _, _, Entrada) :-
     minimo_lista(Lista, Cantidad),
     write('Claro, el elemento minimo es '),
     write(Cantidad),
-    nl,
-    chatbotAux.
+    nl.
 
 analizarAccionRealizar(indice, _, _, Entrada) :-
     filtrarListas(Entrada, L),
@@ -380,13 +340,11 @@ analizarAccionRealizar(indice, _, _, Entrada) :-
     atom_number(IndiceStr, Indice),
     nesimo_elemento(Lista, Indice, Salida),
     write("Claro, el elemento es "),
-    write(Salida),
-    chatbotAux.
+    write(Salida).
 
 analizarAccionRealizar(existe, _, _, Entrada) :-
     filtrarListas(Entrada, Salida),
-    write(Salida),
-    chatbotAux.
+    write(Salida).
 
 analizarAccionRealizar(elimina, _, _, Entrada) :-
     filtrarListas(Entrada, L),
@@ -396,44 +354,37 @@ analizarAccionRealizar(elimina, _, _, Entrada) :-
     atom_number(IndiceStr, Elemento),
     eliminar_elemento(Lista, Elemento, Salida),
     write("Claro, la lista queda de la siguiente manera "),
-    write(Salida),
-    chatbotAux.
+    write(Salida).
 
 analizarAccionRealizar(guardarPredicado, _, _, Entrada) :-
     filtrarPredicados(Entrada, Predicados),
-    crearPredicado(Predicados),
-    chatbotAux.
+    crearPredicado(Predicados).
 
 analizarAccionRealizar(estudio, _, _, _) :-
     write('Claro, aqui te muestro una tecnica que te puede servir: '),
     nl,
     random_between(1, 10, Opcion),
-    consejosAleatorios(Opcion),
-    chatbotAux.
+    consejosAleatorios(Opcion).
 
 analizarAccionRealizar(chiste, _, _, _) :-
     write('Claro, aqui te muestro un chiste que de seguro te hara reir: '),
     nl,
     random_between(1, 10, Opcion),
-    chisteAleatorio(Opcion),
-    chatbotAux.
+    chisteAleatorio(Opcion).
 
 analizarAccionRealizar(refran, _, _, _) :-
     write('Claro, aqui te muestro un refran que puedes utilizar: '),
     nl,
     random_between(1, 10, Opcion),
-    refranesAleatorios(Opcion),
-    chatbotAux.
+    refranesAleatorios(Opcion).
 
 analizarAccionRealizar(imprimirPredicado, _, _ , _) :-
     write('Aqui estan todos los predicados definidos: '),
     nl,
-    imprimirPredicados,
-    chatbotAux.
+    imprimirPredicados.
 
 analizarAccionRealizar(despedida, _, _, _) :-
     write('Hasta pronto joven').
 
 analizarAccionRealizar(_, _, _, _) :-
-    write('Lo siento, pero no puedo resolver tu solicitud.'),
-    chatbotAux.
+    write('Lo siento, pero no puedo resolver tu solicitud.').

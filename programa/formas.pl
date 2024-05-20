@@ -13,11 +13,13 @@ formasDivision(dividir).
 formasDivision(divide).
 formasDivision(dividele).
 formasDivision(dividale).
+formasDivision(divida).
 formasMultiplicacion(multiplicacion).
 formasMultiplicacion(multiplicar).
 formasMultiplicacion(multiplique).
 formasMultiplicacion(multipliquele).
 formasMultiplicacion(multiplicale).
+formasMultiplicacion(multiplica).
 formasModulo(modulo).
 formasPotencia(elevado).
 formasPotencia(eleva).

@@ -8,8 +8,7 @@ filtrarNumeros(Entrada, Salida) :-
 
 filtrarNumeros(_, _) :-
     nl,
-    write('No has escrito todos los numeros de manera correcta'),
-    chatbotAux.
+    write('No has escrito todos los numeros de manera correcta').
 
 % Regla para reemplazar todos los caracteres que no son dígitos ni espacios en un átomo por espacios
 reemplazarNoDigitos(Entrada, Salida) :-
