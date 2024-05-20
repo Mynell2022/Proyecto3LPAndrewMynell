@@ -186,7 +186,12 @@ analizarAccionRealizar(minimo, realizar, _, Entrada) :-
 
 analizarAccionRealizar(indice, realizar, _, Entrada) :-
     write("Claro, el elemento es "),
-    filtrarListas(Entrada, Salida),
+    filtrarListas(Entrada, L),
+    nth0(0, L, Lista),
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    IndiceStr = SubMatch.1,
+    atom_number(IndiceStr, Indice),
+    nesimo_elemento(Lista, Indice, Salida),
     write(Salida),
     chatbotAux.
 
@@ -369,7 +374,12 @@ analizarAccionRealizar(minimo, _, _, Entrada) :-
 
 analizarAccionRealizar(indice, _, _, Entrada) :-
     write("Claro, el elemento es "),
-    filtrarListas(Entrada, Salida),
+    filtrarListas(Entrada, L),
+    nth0(0, L, Lista),
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    IndiceStr = SubMatch.1,
+    atom_number(IndiceStr, Indice),
+    nesimo_elemento(Lista, Indice, Salida),
     write(Salida),
     chatbotAux.
 
