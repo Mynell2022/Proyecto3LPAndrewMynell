@@ -208,72 +208,86 @@ analizarCrear(_, Accion) :- Accion = nada.
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la suma
-analizarAccionRealizar(suma, realizar, crear, _) :-
+analizarAccionRealizar(suma, realizar, crear, Entrada) :-
     !,
     write('Claro, aqui tienes el codigo de la suma: '),
     nl,
-    generarCodigo(suma,Codigo),
-    write(Codigo).
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    Num = SubMatch.1,
+    atom_number(Num, NumArgs),
+    generar_codigo_predicado(suma, NumArgs).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la resta
-analizarAccionRealizar(resta, realizar, crear, _) :-
+analizarAccionRealizar(resta, realizar, crear, Entrada) :-
     write('Claro, aqui tienes el codigo de la resta: '),
     nl,
-    generarCodigo(resta,Codigo),
-    write(Codigo).
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    Num = SubMatch.1,
+    atom_number(Num, NumArgs),
+    generar_codigo_predicado(resta, NumArgs).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la division
-analizarAccionRealizar(division, realizar, crear, _) :-
+analizarAccionRealizar(division, realizar, crear, Entrada) :-
     write('Claro, aqui tienes el codigo de la division: '),
     nl,
-    generarCodigo(division,Codigo),
-    write(Codigo).
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    Num = SubMatch.1,
+    atom_number(Num, NumArgs),
+    generar_codigo_predicado(division, NumArgs).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la multiplicacion
-analizarAccionRealizar(multiplicacion, realizar, crear, _) :-
+analizarAccionRealizar(multiplicacion, realizar, crear, Entrada) :-
     write('Claro, aqui tienes el codigo de la multiplicacion: '),
     nl,
-    generarCodigo(multiplicacion, Codigo),
-    write(Codigo).
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    Num = SubMatch.1,
+    atom_number(Num, NumArgs),
+    generar_codigo_predicado(multiplicacion, NumArgs).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la modulo
-analizarAccionRealizar(modulo, realizar, crear, _) :-
+analizarAccionRealizar(modulo, realizar, crear, Entrada) :-
     write('Claro, aqui tienes el codigo del modulo: '),
     nl,
-    generarCodigo(modulo, Codigo),
-    write(Codigo).
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    Num = SubMatch.1,
+    atom_number(Num, NumArgs),
+    generar_codigo_predicado(modulo, NumArgs).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo del modulo
-analizarAccionRealizar(potencia, realizar, crear, _) :-
+analizarAccionRealizar(potencia, realizar, crear, Entrada) :-
     write('Claro, aqui tienes el codigo de la potencia: '),
     nl,
-    generarCodigo(potencia, Codigo),
-    write(Codigo).
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    Num = SubMatch.1,
+    atom_number(Num, NumArgs),
+    generar_codigo_predicado(potencia, NumArgs).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la raiz cuadrada.
-analizarAccionRealizar(raiz, realizar, crear, _) :-
+analizarAccionRealizar(raiz, realizar, crear, Entrada) :-
     write('Claro, aqui tienes el codigo de la raiz cuadrada: '),
     nl,
-    generarCodigo(raiz, Codigo),
-    write(Codigo).
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    Num = SubMatch.1,
+    atom_number(Num, NumArgs),
+    generar_codigo_predicado(raiz, NumArgs).
 
 %Entrada: Una lista de numeros.
 %Salida: nada
@@ -485,65 +499,93 @@ analizarAccionRealizar(elimina, realizar, _, Entrada) :-
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la suma
 analizarAccionRealizar(suma, _, crear, _) :-
-    write('Claro, aqui tienes el codigo de la suma: '),nl,
-    generarCodigo(suma,Codigo),
-    write(Codigo).
+    !,
+    write('Claro, aqui tienes el codigo de la suma: '),
+    nl,
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    Num = SubMatch.1,
+    atom_number(Num, NumArgs),
+    generar_codigo_predicado(suma, NumArgs).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la resta
 analizarAccionRealizar(resta, _, crear, _) :-
-    write('Claro, aqui tienes el codigo de la resta: '),nl,
-    generarCodigo(resta, Codigo),
-    write(Codigo).
+    !,
+    write('Claro, aqui tienes el codigo de la resta: '),
+    nl,
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    Num = SubMatch.1,
+    atom_number(Num, NumArgs),
+    generar_codigo_predicado(resta, NumArgs).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la multiplicacion
 analizarAccionRealizar(multiplicacion, _, crear, _) :-
-    write('Claro, aqui tienes el codigo de la multiplicacion: '),nl,
-    generarCodigo(multiplicacion,Codigo),
-    write(Codigo).
+    !,
+    write('Claro, aqui tienes el codigo de la multiplicacion: '),
+    nl,
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    Num = SubMatch.1,
+    atom_number(Num, NumArgs),
+    generar_codigo_predicado(multiplicacion, NumArgs).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la division
 analizarAccionRealizar(division, _, crear, _) :-
-    write('Claro, aqui tienes el codigo de la division: '),nl,
-    generarCodigo(division,Codigo),
-    write(Codigo).
+    !,
+    write('Claro, aqui tienes el codigo de la division: '),
+    nl,
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    Num = SubMatch.1,
+    atom_number(Num, NumArgs),
+    generar_codigo_predicado(division, NumArgs).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo del modulo
 analizarAccionRealizar(modulo, _, crear, _) :-
-    generarCodigo(modulo,Codigo),
-    write('Claro, aqui tienes el codigo de la modulo: '),nl,
-    write(Codigo).
+    !,
+    write('Claro, aqui tienes el codigo de la modulo: '),
+    nl,
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    Num = SubMatch.1,
+    atom_number(Num, NumArgs),
+    generar_codigo_predicado(modulo, NumArgs).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la potencia
 analizarAccionRealizar(potencia, _, crear, _) :-
-    write('Claro, aqui tienes el codigo de la potencia: '),nl,
-    generarCodigo(potencia,Codigo),
-    write(Codigo).
+    !,
+    write('Claro, aqui tienes el codigo de la potencia: '),
+    nl,
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    Num = SubMatch.1,
+    atom_number(Num, NumArgs),
+    generar_codigo_predicado(potencia, NumArgs).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la raiz cuadrada
 analizarAccionRealizar(raiz, _, crear, _) :-
-    write('Claro, aqui tienes el codigo de la raiz: '),nl,
-    generarCodigo(raiz,Codigo),
-    write(Codigo).
+    !,
+    write('Claro, aqui tienes el codigo de la raiz: '),
+    nl,
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    Num = SubMatch.1,
+    atom_number(Num, NumArgs),
+    generar_codigo_predicado(raiz, NumArgs).
 
-analizarAccionRealizar(codifica, _, crear, Entrada) :-
+analizarAccionRealizar(codifica, _, _, Entrada) :-
     write('Claro, aqui tienes el codigo mas cercano en nuestro conocimiento: '),nl,
     write(Entrada).
 
