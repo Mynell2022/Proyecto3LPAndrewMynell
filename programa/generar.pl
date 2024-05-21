@@ -1,3 +1,10 @@
+%GENERADORES
+
+%Entradas: Identificacion del codigo
+%Salidas: Codigo guardado segun identificador
+%Restricciones: Tiene identificadores especificos
+%Objetivo: Obtener codigo de reglas guardadas
+
 generarCodigo(suma,"
 suma(A, B, Suma) :-
     Suma is A + B.
