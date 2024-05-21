@@ -293,7 +293,8 @@ analizarAccionRealizar(suma, realizar, _, Entrada) :-
 analizarAccionRealizar(resta, realizar, _, Entrada) :-
     !,
     filtrarNumeros(Entrada, Salida),
-    resta_lista(Salida, 0, Resultado),
+    [Numero|SalidaAux] = Salida,
+    resta_lista(SalidaAux, Numero, Resultado),
     write('Claro, el resultado de la resta es '),
     write(Resultado).
 
@@ -337,7 +338,8 @@ analizarAccionRealizar(modulo, realizar, _, Entrada) :-
 analizarAccionRealizar(potencia, realizar, _, Entrada) :-
     !,
     filtrarNumeros(Entrada, Salida),
-    potencia_lista(Salida, Resultado),
+    [Numero|SalidaAux] = Salida,
+    potencia_lista(SalidaAux, Numero, Resultado),
     write('Claro, el resultado de la potencia es '),
     write(Resultado).
 
@@ -420,7 +422,7 @@ analizarAccionRealizar(ultimo, realizar, _, Entrada) :-
 analizarAccionRealizar(maximo, realizar, _, Entrada) :-
     filtrarListas(Entrada, Salida),
     nth0(0, Salida, Lista),
-    maximo_lista(Lista, Cantidad),
+    catch(maximo_lista(Lista, Cantidad), _, fail),
     write('Claro, el elemento maximo es '),
     write(Cantidad),
     nl.
@@ -432,7 +434,7 @@ analizarAccionRealizar(maximo, realizar, _, Entrada) :-
 analizarAccionRealizar(minimo, realizar, _, Entrada) :-
     filtrarListas(Entrada, Salida),
     nth0(0, Salida, Lista),
-    minimo_lista(Lista, Cantidad),
+    catch(minimo_lista(Lista, Cantidad), _, fail),
     write('Claro, el elemento minimo es '),
     write(Cantidad),
     nl.
@@ -610,7 +612,8 @@ analizarAccionRealizar(modulo, _, _, Entrada) :-
 analizarAccionRealizar(potencia, _, _, Entrada) :-
     !,
     filtrarNumeros(Entrada, Salida),
-    potencia_lista(Salida, Resultado),
+    [Numero|SalidaAux] = Salida,
+    potencia_lista(SalidaAux, Numero, Resultado),
     write('Claro, el resultado de la potencia es '),
     write(Resultado).
 
@@ -693,7 +696,7 @@ analizarAccionRealizar(ultimo, _, _, Entrada) :-
 analizarAccionRealizar(maximo, _, _, Entrada) :-
     filtrarListas(Entrada, Salida),
     nth0(0, Salida, Lista),
-    maximo_lista(Lista, Cantidad),
+    catch(maximo_lista(Lista, Cantidad), _, fail),
     write('Claro, el elemento maximo es '),
     write(Cantidad),
     nl.
@@ -705,7 +708,7 @@ analizarAccionRealizar(maximo, _, _, Entrada) :-
 analizarAccionRealizar(minimo, _, _, Entrada) :-
     filtrarListas(Entrada, Salida),
     nth0(0, Salida, Lista),
-    minimo_lista(Lista, Cantidad),
+    catch(minimo_lista(Lista, Cantidad), _, fail),
     write('Claro, el elemento minimo es '),
     write(Cantidad),
     nl.

@@ -51,11 +51,10 @@ modulo_lista([X, Y|Xs], Modulo) :-
 %Salidas: Potencia consecutiva de los numeros
 %Restricciones: No puede poseer atomos o algun otro valor no numerico
 %Objetivo: Manejar potencias del usuario
-potencia_lista([X], X).
-potencia_lista([], 1).
-potencia_lista([X,Y|Resto], Resultado) :-
-    Z is X**Y,
-    potencia_lista([Z|Resto], Resultado).
+potencia_lista([], Potencia, Potencia).
+potencia_lista([X|Xs], Acum, Potencia) :-
+    NuevoAcum is Acum ** X,
+    potencia_lista(Xs, NuevoAcum, Potencia).
 
 %Entradas: Una lista de numeros
 %Salidas: Raiz consecutiva de los numeros
