@@ -579,8 +579,10 @@ analizarAccionRealizar(raiz, _, crear, _).
 %Restricciones: Nada
 %Objetivo: Busca el codigo que mejor coincida.
 analizarAccionRealizar(codifica, _, _, Entrada) :-
+    re_matchsub("\"([^\"]*)\"", Entrada, SubMatch, []),
+    Contenido = SubMatch.1,
     write('Claro, aqui tienes el codigo mas cercano en nuestro conocimiento: '),nl,
-    write(Entrada).
+    buscar_regla(Contenido,'aritmetica.pl').
 
 %Entrada: Una lista de numeros.
 %Salida: nada
