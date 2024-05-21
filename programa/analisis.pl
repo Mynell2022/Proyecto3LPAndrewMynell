@@ -209,165 +209,157 @@ analizarCrear(_, Accion) :- Accion = nada.
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la suma
 analizarAccionRealizar(suma, realizar, crear, Entrada) :-
-    !,
-    write('Claro, aqui tienes el codigo de la suma: '),
     nl,
-    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
-    Num = SubMatch.1,
-    atom_number(Num, NumArgs),
-    generar_codigo_predicado(suma, NumArgs).
+    generar_codigo_predicado(suma, Entrada, Codigo),
+    write('Claro, aqui tienes el codigo de la suma: '),
+    write(Codigo).
+analizarAccionRealizar(suma, realizar, crear, _).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la resta
 analizarAccionRealizar(resta, realizar, crear, Entrada) :-
-    write('Claro, aqui tienes el codigo de la resta: '),
     nl,
-    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
-    Num = SubMatch.1,
-    atom_number(Num, NumArgs),
-    generar_codigo_predicado(resta, NumArgs).
+    generar_codigo_predicado(resta, Entrada, Codigo),
+    write('Claro, aqui tienes el codigo de la resta: '),
+    write(Codigo).
+analizarAccionRealizar(resta, realizar, crear, _).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la division
 analizarAccionRealizar(division, realizar, crear, Entrada) :-
-    write('Claro, aqui tienes el codigo de la division: '),
     nl,
-    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
-    Num = SubMatch.1,
-    atom_number(Num, NumArgs),
-    generar_codigo_predicado(division, NumArgs).
+    generar_codigo_predicado(division, Entrada, Codigo),
+    write('Claro, aqui tienes el codigo de la division: '),
+    write(Codigo).
+analizarAccionRealizar(division, realizar, crear, _).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la multiplicacion
 analizarAccionRealizar(multiplicacion, realizar, crear, Entrada) :-
-    write('Claro, aqui tienes el codigo de la multiplicacion: '),
     nl,
-    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
-    Num = SubMatch.1,
-    atom_number(Num, NumArgs),
-    generar_codigo_predicado(multiplicacion, NumArgs).
+    generar_codigo_predicado(multiplicacion, Entrada, Codigo),
+    write('Claro, aqui tienes el codigo de la multiplicacion: '),
+    write(Codigo).
+analizarAccionRealizar(multiplicacion, realizar, crear, _).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la modulo
 analizarAccionRealizar(modulo, realizar, crear, Entrada) :-
-    write('Claro, aqui tienes el codigo del modulo: '),
     nl,
-    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
-    Num = SubMatch.1,
-    atom_number(Num, NumArgs),
-    generar_codigo_predicado(modulo, NumArgs).
+    generar_codigo_predicado(modulo, Entrada, Codigo),
+    write('Claro, aqui tienes el codigo del modulo: '),
+    write(Codigo).
+analizarAccionRealizar(modulo, realizar, crear, _).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo del modulo
 analizarAccionRealizar(potencia, realizar, crear, Entrada) :-
-    write('Claro, aqui tienes el codigo de la potencia: '),
     nl,
-    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
-    Num = SubMatch.1,
-    atom_number(Num, NumArgs),
-    generar_codigo_predicado(potencia, NumArgs).
+    generar_codigo_predicado(potencia, Entrada, Codigo),
+    write('Claro, aqui tienes el codigo de la potencia: '),
+    write(Codigo).
+analizarAccionRealizar(potencia, realizar, crear, _).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la raiz cuadrada.
 analizarAccionRealizar(raiz, realizar, crear, Entrada) :-
-    write('Claro, aqui tienes el codigo de la raiz cuadrada: '),
     nl,
-    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
-    Num = SubMatch.1,
-    atom_number(Num, NumArgs),
-    generar_codigo_predicado(raiz, NumArgs).
+    generar_codigo_predicado(raiz, Entrada, Codigo),
+    write('Claro, aqui tienes el codigo de la raiz cuadrada: '),
+    write(Codigo).
+analizarAccionRealizar(raiz, realizar, crear, _).
 
 %Entrada: Una lista de numeros.
 %Salida: nada
 %Restricciones: Los numeros deben estar bien escritos
 %Objetivo: Hace la  de los elementos de la lista.
 analizarAccionRealizar(suma, realizar, _, Entrada) :-
-    !,
     filtrarNumeros(Entrada, Salida),
     suma_lista(Salida, Resultado),
     write('Claro, el resultado de la suma es '),
     write(Resultado).
+analizarAccionRealizar(suma, realizar, _, _).
 
 %Entrada: Una lista de numeros.
 %Salida: nada
 %Restricciones: Los numeros deben estar bien escritos
 %Objetivo: Hace la resta de los elementos de la lista.
 analizarAccionRealizar(resta, realizar, _, Entrada) :-
-    !,
     filtrarNumeros(Entrada, Salida),
     [Numero|SalidaAux] = Salida,
     resta_lista(SalidaAux, Numero, Resultado),
     write('Claro, el resultado de la resta es '),
     write(Resultado).
+analizarAccionRealizar(resta, realizar, _, _).
 
 %Entrada: Una lista de numeros.
 %Salida: nada
 %Restricciones: Los numeros deben estar bien escritos
 %Objetivo: Hace la multiplicacion de los elementos de la lista.
 analizarAccionRealizar(multiplicacion, realizar, _, Entrada) :-
-    !,
     filtrarNumeros(Entrada, Salida),
     multiplicacion_lista(Salida, Resultado),
     write('Claro, el resultado de la multiplicacion es '),
     write(Resultado).
+analizarAccionRealizar(multiplicacion, realizar, _, _).
 
 %Entrada: Una lista de numeros.
 %Salida: nada
 %Restricciones: Los numeros deben estar bien escritos
 %Objetivo: Hace la division de los elementos de la lista.
 analizarAccionRealizar(division, realizar, _, Entrada) :-
-    !,
     filtrarNumeros(Entrada, Salida),
     division_lista(Salida, Resultado),
     write('Claro, el resultado de la division es '),
     write(Resultado).
+analizarAccionRealizar(division, realizar, _, _).
 
 %Entrada: Una lista de numeros.
 %Salida: nada
 %Restricciones: Los numeros deben estar bien escritos
 %Objetivo: Hace el modulo de los elementos de la lista.
 analizarAccionRealizar(modulo, realizar, _, Entrada) :-
-    !,
     filtrarNumeros(Entrada, Salida),
     modulo_lista(Salida, Resultado),
     write('Claro, el resultado del modulo es '),
     write(Resultado).
+analizarAccionRealizar(modulo, realizar, _, _).
 
 %Entrada: Una lista de numeros.
 %Salida: nada
 %Restricciones: Los numeros deben estar bien escritos
 %Objetivo: Hace la potencia de los elementos de la lista.
 analizarAccionRealizar(potencia, realizar, _, Entrada) :-
-    !,
     filtrarNumeros(Entrada, Salida),
     [Numero|SalidaAux] = Salida,
     potencia_lista(SalidaAux, Numero, Resultado),
     write('Claro, el resultado de la potencia es '),
     write(Resultado).
+analizarAccionRealizar(potencia, realizar, _, _).
 
 %Entrada: Una lista de numeros.
 %Salida: nada
 %Restricciones: Los numeros deben estar bien escritos
 %Objetivo: Hace la raiz cuadrada de los elementos de la lista.
 analizarAccionRealizar(raiz, realizar, _, Entrada) :-
-    !,
     filtrarNumeros(Entrada, Salida),
     nth0(0, Salida, Numero),
     raiz_cuadrada(Numero, Resultado),
     write('Claro, el resultado de la raiz cuadrada es '),
     write(Resultado).
+analizarAccionRealizar(raiz, realizar, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -392,6 +384,7 @@ analizarAccionRealizar(concatena, realizar, _, Entrada) :-
     write('Claro, el resultado de la concatenacion es '),
     write(Cantidad),
     nl.
+analizarAccionRealizar(concatena, realizar, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -404,6 +397,7 @@ analizarAccionRealizar(reverso, realizar, _, Entrada) :-
     write('Claro, la lista inversa es '),
     write(Cantidad),
     nl.
+analizarAccionRealizar(reverso, realizar, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -416,6 +410,7 @@ analizarAccionRealizar(primero, realizar, _, Entrada) :-
     write('Claro, el primer elemento es '),
     write(Cantidad),
     nl.
+analizarAccionRealizar(primero, realizar, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -428,6 +423,7 @@ analizarAccionRealizar(ultimo, realizar, _, Entrada) :-
     write('Claro, el ultimo elemento es '),
     write(Cantidad),
     nl.
+analizarAccionRealizar(ultimo, realizar, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -440,6 +436,7 @@ analizarAccionRealizar(maximo, realizar, _, Entrada) :-
     write('Claro, el elemento maximo es '),
     write(Cantidad),
     nl.
+analizarAccionRealizar(maximo, realizar, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -452,6 +449,7 @@ analizarAccionRealizar(minimo, realizar, _, Entrada) :-
     write('Claro, el elemento minimo es '),
     write(Cantidad),
     nl.
+analizarAccionRealizar(minimo, realizar, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -466,6 +464,7 @@ analizarAccionRealizar(indice, realizar, _, Entrada) :-
     atom_number(IndiceStr, Indice),
     nesimo_elemento(Lista, Indice, Salida),
     write(Salida).
+analizarAccionRealizar(indice, realizar, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -481,6 +480,7 @@ analizarAccionRealizar(existe, realizar, _, Entrada) :-
     ->  write("Si que existe "), write(Elemento), write(" en la lista"), nl
     ;   write("No existe el elemento "), write(Elemento), write(" en la lista"), nl
     ).
+analizarAccionRealizar(existe, realizar, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -495,98 +495,89 @@ analizarAccionRealizar(elimina, realizar, _, Entrada) :-
     eliminar_elemento(Lista, Elemento, Salida),
     write("Claro, la lista queda de la siguiente manera "),
     write(Salida).
+analizarAccionRealizar(elimina, realizar, _, _).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la suma
-analizarAccionRealizar(suma, _, crear, _) :-
-    !,
-    write('Claro, aqui tienes el codigo de la suma: '),
+analizarAccionRealizar(suma, _, crear, Entrada) :-
     nl,
-    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
-    Num = SubMatch.1,
-    atom_number(Num, NumArgs),
-    generar_codigo_predicado(suma, NumArgs).
+    generar_codigo_predicado(suma, Entrada, Codigo),
+    write('Claro, aqui tienes el codigo de la suma: '),
+    write(Codigo).
+analizarAccionRealizar(suma, _, crear, _).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la resta
-analizarAccionRealizar(resta, _, crear, _) :-
-    !,
-    write('Claro, aqui tienes el codigo de la resta: '),
+analizarAccionRealizar(resta, _, crear, Entrada) :-
     nl,
-    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
-    Num = SubMatch.1,
-    atom_number(Num, NumArgs),
-    generar_codigo_predicado(resta, NumArgs).
+    generar_codigo_predicado(resta, Entrada, Codigo),
+    write('Claro, aqui tienes el codigo de la resta: '),
+    write(Codigo).
+analizarAccionRealizar(resta, _, crear, _).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la multiplicacion
-analizarAccionRealizar(multiplicacion, _, crear, _) :-
-    !,
-    write('Claro, aqui tienes el codigo de la multiplicacion: '),
+analizarAccionRealizar(multiplicacion, _, crear, Entrada) :-
     nl,
-    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
-    Num = SubMatch.1,
-    atom_number(Num, NumArgs),
-    generar_codigo_predicado(multiplicacion, NumArgs).
+    generar_codigo_predicado(multiplicacion, Entrada, Codigo),
+    write('Claro, aqui tienes el codigo de la multiplicacion: '),
+    write(Codigo).
+analizarAccionRealizar(multiplicacion, _, crear, _).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la division
-analizarAccionRealizar(division, _, crear, _) :-
-    !,
-    write('Claro, aqui tienes el codigo de la division: '),
+analizarAccionRealizar(division, _, crear, Entrada) :-
     nl,
-    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
-    Num = SubMatch.1,
-    atom_number(Num, NumArgs),
-    generar_codigo_predicado(division, NumArgs).
+    generar_codigo_predicado(division, Entrada, Codigo),
+    write('Claro, aqui tienes el codigo de la division: '),
+    write(Codigo).
+analizarAccionRealizar(division, _, crear, _).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo del modulo
-analizarAccionRealizar(modulo, _, crear, _) :-
-    !,
-    write('Claro, aqui tienes el codigo de la modulo: '),
+analizarAccionRealizar(modulo, _, crear, Entrada) :-
     nl,
-    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
-    Num = SubMatch.1,
-    atom_number(Num, NumArgs),
-    generar_codigo_predicado(modulo, NumArgs).
+    generar_codigo_predicado(modulo, Entrada, Codigo),
+    write('Claro, aqui tienes el codigo de la modulo: '),
+    write(Codigo).
+analizarAccionRealizar(modulo, _, crear, _).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la potencia
-analizarAccionRealizar(potencia, _, crear, _) :-
-    !,
-    write('Claro, aqui tienes el codigo de la potencia: '),
+analizarAccionRealizar(potencia, _, crear, Entrada) :-
     nl,
-    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
-    Num = SubMatch.1,
-    atom_number(Num, NumArgs),
-    generar_codigo_predicado(potencia, NumArgs).
+    generar_codigo_predicado(potencia, Entrada, Codigo),
+    write('Claro, aqui tienes el codigo de la potencia: '),
+    write(Codigo).
+analizarAccionRealizar(potencia, _, crear, _).
 
 %Entrada: Nada
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la raiz cuadrada
-analizarAccionRealizar(raiz, _, crear, _) :-
-    !,
-    write('Claro, aqui tienes el codigo de la raiz: '),
+analizarAccionRealizar(raiz, _, crear, Entrada) :-
     nl,
-    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
-    Num = SubMatch.1,
-    atom_number(Num, NumArgs),
-    generar_codigo_predicado(raiz, NumArgs).
+    generar_codigo_predicado(raiz, Entrada, Codigo),
+    write('Claro, aqui tienes el codigo de la raiz: '),
+    write(Codigo).
+analizarAccionRealizar(raiz, _, crear, _).
 
+%Entrada: El string ingresado por el usuario.
+%Salida: nada
+%Restricciones: Nada
+%Objetivo: Busca el codigo que mejor coincida.
 analizarAccionRealizar(codifica, _, _, Entrada) :-
     write('Claro, aqui tienes el codigo mas cercano en nuestro conocimiento: '),nl,
     write(Entrada).
@@ -596,80 +587,80 @@ analizarAccionRealizar(codifica, _, _, Entrada) :-
 %Restricciones: Los numeros deben estar bien escritos
 %Objetivo: Hace la suma de los elementos de la lista.
 analizarAccionRealizar(suma, _, _, Entrada) :-
-    !,
     filtrarNumeros(Entrada, Salida),
     suma_lista(Salida, Resultado),
     write('Claro, el resultado de la suma es '),
     write(Resultado).
+analizarAccionRealizar(suma, _, _, _).
 
 %Entrada: Una lista de numeros.
 %Salida: nada
 %Restricciones: Los numeros deben estar bien escritos
 %Objetivo: Hace la resta de los elementos de la lista.
 analizarAccionRealizar(resta, _, _, Entrada) :-
-    !,
     filtrarNumeros(Entrada, Salida),
     [Numero|SalidaAux] = Salida,
     resta_lista(SalidaAux, Numero, Resultado),
     write('Claro, el resultado de la resta es '),
     write(Resultado).
+analizarAccionRealizar(resta, _, _, _).
 
 %Entrada: Una lista de numeros.
 %Salida: nada
 %Restricciones: Los numeros deben estar bien escritos
 %Objetivo: Hace la multiplicacion de los elementos de la lista.
 analizarAccionRealizar(multiplicacion, _, _, Entrada) :-
-    !,
     filtrarNumeros(Entrada, Salida),
     multiplicacion_lista(Salida, Resultado),
     write('Claro, el resultado de la multiplicacion es '),
     write(Resultado).
+analizarAccionRealizar(multiplicacion, _, _, _).
 
 %Entrada: Una lista de numeros.
 %Salida: nada
 %Restricciones: Los numeros deben estar bien escritos
 %Objetivo: Hace la division de los elementos de la lista.
 analizarAccionRealizar(division, _, _, Entrada) :-
-    !,
     filtrarNumeros(Entrada, Salida),
     division_lista(Salida, Resultado),
     write('Claro, el resultado de la division es '),
     write(Resultado).
+analizarAccionRealizar(division, _, _, _).
 
 %Entrada: Una lista de numeros.
 %Salida: nada
 %Restricciones: Los numeros deben estar bien escritos
 %Objetivo: Hace el modulo de los elementos de la lista.
 analizarAccionRealizar(modulo, _, _, Entrada) :-
-    !,
     filtrarNumeros(Entrada, Salida),
     modulo_lista(Salida, Resultado),
     write('Claro, el resultado del modulo es '),
     write(Resultado).
+analizarAccionRealizar(modulo, _, _, _).
 
 %Entrada: Una lista de numeros.
 %Salida: nada
 %Restricciones: Los numeros deben estar bien escritos
 %Objetivo: Hace la  de los elementos de la lista.
 analizarAccionRealizar(potencia, _, _, Entrada) :-
-    !,
     filtrarNumeros(Entrada, Salida),
     [Numero|SalidaAux] = Salida,
     potencia_lista(SalidaAux, Numero, Resultado),
     write('Claro, el resultado de la potencia es '),
     write(Resultado).
+analizarAccionRealizar(potencia, _, _, _).
 
 %Entrada: Una lista de numeros.
 %Salida: nada
 %Restricciones: Los numeros deben estar bien escritos
 %Objetivo: Hace la raiz cuadrada de los elementos de la lista.
 analizarAccionRealizar(raiz, _, _, Entrada) :-
-    !,
     filtrarNumeros(Entrada, Salida),
     nth0(0, Salida, Numero),
     raiz_cuadrada(Numero, Resultado),
     write('Claro, el resultado de la raiz cuadrada es '),
     write(Resultado).
+analizarAccionRealizar(raiz, _, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -682,6 +673,7 @@ analizarAccionRealizar(longitud, _, _, Entrada) :-
     write('Claro, la longitud de la lista es '),
     write(Cantidad),
     nl.
+analizarAccionRealizar(longitud, _, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -694,6 +686,7 @@ analizarAccionRealizar(concatena, _, _, Entrada) :-
     write('Claro, el resultado de la concatenacion es '),
     write(Cantidad),
     nl.
+analizarAccionRealizar(concatena, _, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -706,6 +699,7 @@ analizarAccionRealizar(reverso, _, _, Entrada) :-
     write('Claro, la lista inversa es '),
     write(Cantidad),
     nl.
+analizarAccionRealizar(reverso, _, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -718,6 +712,7 @@ analizarAccionRealizar(primero, _, _, Entrada) :-
     write('Claro, el primer elemento es '),
     write(Cantidad),
     nl.
+analizarAccionRealizar(primero, _, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -730,6 +725,7 @@ analizarAccionRealizar(ultimo, _, _, Entrada) :-
     write('Claro, el ultimo elemento es '),
     write(Cantidad),
     nl.
+analizarAccionRealizar(ultimo, _, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -742,6 +738,7 @@ analizarAccionRealizar(maximo, _, _, Entrada) :-
     write('Claro, el elemento maximo es '),
     write(Cantidad),
     nl.
+analizarAccionRealizar(maximo, _, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -754,6 +751,7 @@ analizarAccionRealizar(minimo, _, _, Entrada) :-
     write('Claro, el elemento minimo es '),
     write(Cantidad),
     nl.
+analizarAccionRealizar(minimo, _, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -768,6 +766,7 @@ analizarAccionRealizar(indice, _, _, Entrada) :-
     nesimo_elemento(Lista, Indice, Salida),
     write("Claro, el elemento es "),
     write(Salida).
+analizarAccionRealizar(indice, _, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -783,6 +782,7 @@ analizarAccionRealizar(existe, _, _, Entrada) :-
     ->  write("Si que existe "), write(Elemento), write(" en la lista"), nl
     ;   write("No existe el elemento "), write(Elemento), write(" en la lista"), nl
     ).
+analizarAccionRealizar(existe, _, _, _).
 
 %Entrada: Una lista de listas numeros.
 %Salida: nada
@@ -797,6 +797,7 @@ analizarAccionRealizar(elimina, _, _, Entrada) :-
     eliminar_elemento(Lista, Elemento, Salida),
     write("Claro, la lista queda de la siguiente manera "),
     write(Salida).
+analizarAccionRealizar(elimina, _, _, _).
 
 %Entrada: Una lista con el predicado.
 %Salida: nada

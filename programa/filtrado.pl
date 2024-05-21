@@ -16,7 +16,8 @@ filtrarNumeros(Entrada, Salida) :-
 %Objetivo: Informa que los números no se pueden pasar de string a enteros.
 filtrarNumeros(_, _) :-
     nl,
-    write('No has escrito todos los numeros de manera correcta').
+    write('No has escrito todos los numeros de manera correcta'),
+    fail.
 
 %Entradas: Una cadena de caracteres.
 %Salidas: La lista con los numeros

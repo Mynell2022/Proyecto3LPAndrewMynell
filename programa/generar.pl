@@ -1,70 +1,54 @@
-%GENERADORES
+generar_codigo_predicado(modulo, _, Predicado) :-
+    nl,
+    Predicado = 'modulo(Arg1, Salida) :- Salida is sqrt(Arg1).'.
 
-%Entradas: Identificacion del codigo
-%Salidas: Codigo guardado segun identificador
-%Restricciones: Tiene identificadores especificos
-%Objetivo: Obtener codigo de reglas guardadas
-
-generarCodigo(suma,"
-suma(A, B, Suma) :-
-    Suma is A + B.
-").
-
-generarCodigo(resta,"
-resta(A, B, Resta) :-
-    Resta is A - B.
-").
-
-generarCodigo(multiplicacion,"
-multiplicacion(A, B, Producto) :-
-    Producto is A * B.
-").
-
-generarCodigo(division,"
-division(A, B, Division) :-
-    B \\= 0,
-    Division is A / B.
-").
-
-generarCodigo(modulo,"
-modulo(A, B, Modulo) :-
-    B \\= 0,
-    Modulo is A mod B.
-").
-
-generarCodigo(potencia,"
-potencia(Base, Exponente, Resultado) :-
-    Resultado is Base ** Exponente.
-").
-
-generarCodigo(raiz,"
-raiz(Numero, Raiz) :-
-    Raiz is sqrt(Numero).
-").
-
-:- use_module(library(readutil)).
-
-buscar_regla(NombreArchivo, NombreRegla) :-
-    open(NombreArchivo, read, Stream),
-    buscar_regla_en_stream(Stream, NombreRegla),
-    close(Stream).
-
-buscar_regla_en_stream(Stream, NombreRegla) :-
-    read_line_to_string(Stream, Linea),
-    (   Linea \= end_of_file
-    ->  (   sub_string(Linea, _, _, _, NombreRegla) -> writeln(Linea) ; true ),
-        buscar_regla_en_stream(Stream, NombreRegla)
-    ;   true ).
-
-generar_codigo_predicado(Nombre, NumArgs) :-
+generar_codigo_predicado(Nombre, Entrada, Predicado) :-
+    re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
+    Num = SubMatch.1,
+    atom_number(Num, NumArgs),
     generar_argumentos(NumArgs, Args),
     atomic_list_concat(Args, ', ', ArgsStr),
-    format(atom(Predicado), '~w(~w, Salida)', [Nombre, ArgsStr]),
-    writeln(Predicado).
+    format(atom(Inicio), '~w(~w, Salida)', [Nombre, ArgsStr]),
+    generarCodigo(Nombre, NumArgs, Codigo),
+    concat_atom([Inicio, Codigo], '', Predicado).
 
-generar_argumentos(0, []) :- !.
+generar_codigo_predicado(_, _, _) :-
+    write('Debes indicarme la cantidad de argumentos que deseas.'),
+    fail.
+
+generar_argumentos(0, []).
 generar_argumentos(N, [Arg|Args]) :-
     N > 0,
     atomic_concat('Arg', N, Arg),
     N1 is N - 1,
     generar_argumentos(N1, Args).
+
+generarCodigo(suma, Cantidad, Codigo) :-
+    generar_argumentos(Cantidad, Args),
+    atomic_list_concat(Args, ' + ', ArgsStr),
+    format(atom(Codigo), ' :- Salida is ~w.', [ArgsStr]).
+
+generarCodigo(resta, Cantidad, Codigo) :-
+    generar_argumentos(Cantidad, Args),
+    atomic_list_concat(Args, ' - ', ArgsStr),
+    format(atom(Codigo), ' :- Salida is ~w.', [ArgsStr]).
+
+generarCodigo(division, Cantidad, Codigo) :-
+    generar_argumentos(Cantidad, Args),
+    atomic_list_concat(Args, ' / ', ArgsStr),
+    format(atom(Codigo), ' :- Salida is ~w.', [ArgsStr]).
+
+generarCodigo(multiplicacion, Cantidad, Codigo) :-
+    generar_argumentos(Cantidad, Args),
+    atomic_list_concat(Args, ' * ', ArgsStr),
+    format(atom(Codigo), ' :- Salida is ~w.', [ArgsStr]).
+
+generarCodigo(potencia, Cantidad, Codigo) :-
+    generar_argumentos(Cantidad, Args),
+    atomic_list_concat(Args, ' ** ', ArgsStr),
+    format(atom(Codigo), ' :- Salida is ~w.', [ArgsStr]).
+
+generarCodigo(modulo, Cantidad, Codigo) :-
+    generar_argumentos(Cantidad, Args),
+    atomic_list_concat(Args, ' mod ', ArgsStr),
+    format(atom(Codigo), ' :- Salida is ~w.', [ArgsStr]).
