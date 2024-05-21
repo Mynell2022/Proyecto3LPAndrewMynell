@@ -500,7 +500,7 @@ analizarAccionRealizar(elimina, realizar, _, Entrada) :-
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la suma
-analizarAccionRealizar(suma, _, crear, _) :-
+analizarAccionRealizar(suma, _, crear, Entrada) :-
     !,
     write('Claro, aqui tienes el codigo de la suma: '),
     nl,
@@ -513,7 +513,7 @@ analizarAccionRealizar(suma, _, crear, _) :-
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la resta
-analizarAccionRealizar(resta, _, crear, _) :-
+analizarAccionRealizar(resta, _, crear, Entrada) :-
     !,
     write('Claro, aqui tienes el codigo de la resta: '),
     nl,
@@ -526,7 +526,7 @@ analizarAccionRealizar(resta, _, crear, _) :-
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la multiplicacion
-analizarAccionRealizar(multiplicacion, _, crear, _) :-
+analizarAccionRealizar(multiplicacion, _, crear, Entrada) :-
     !,
     write('Claro, aqui tienes el codigo de la multiplicacion: '),
     nl,
@@ -539,7 +539,7 @@ analizarAccionRealizar(multiplicacion, _, crear, _) :-
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la division
-analizarAccionRealizar(division, _, crear, _) :-
+analizarAccionRealizar(division, _, crear, Entrada) :-
     !,
     write('Claro, aqui tienes el codigo de la division: '),
     nl,
@@ -552,7 +552,7 @@ analizarAccionRealizar(division, _, crear, _) :-
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo del modulo
-analizarAccionRealizar(modulo, _, crear, _) :-
+analizarAccionRealizar(modulo, _, crear, Entrada) :-
     !,
     write('Claro, aqui tienes el codigo de la modulo: '),
     nl,
@@ -565,7 +565,7 @@ analizarAccionRealizar(modulo, _, crear, _) :-
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la potencia
-analizarAccionRealizar(potencia, _, crear, _) :-
+analizarAccionRealizar(potencia, _, crear, Entrada) :-
     !,
     write('Claro, aqui tienes el codigo de la potencia: '),
     nl,
@@ -578,7 +578,7 @@ analizarAccionRealizar(potencia, _, crear, _) :-
 %Salida: nada
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la raiz cuadrada
-analizarAccionRealizar(raiz, _, crear, _) :-
+analizarAccionRealizar(raiz, _, crear, Entrada) :-
     !,
     write('Claro, aqui tienes el codigo de la raiz: '),
     nl,
@@ -587,9 +587,16 @@ analizarAccionRealizar(raiz, _, crear, _) :-
     atom_number(Num, NumArgs),
     generar_codigo_predicado(raiz, NumArgs).
 
+%Entrada: Nada
+%Salida: nada
+%Restricciones: Nada
+%Objetivo: Mostrar codigo almacenado
 analizarAccionRealizar(codifica, _, _, Entrada) :-
     write('Claro, aqui tienes el codigo mas cercano en nuestro conocimiento: '),nl,
-    write(Entrada).
+    re_matchsub("\"([^\"]*)\"", Entrada, SubMatch, []),
+    Contenido = SubMatch.1,
+    buscar_palabra_en_archivos(['aritmetica.pl'],Contenido),
+    chatbotAux.
 
 %Entrada: Una lista de numeros.
 %Salida: nada

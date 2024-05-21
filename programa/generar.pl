@@ -44,23 +44,46 @@ raiz(Numero, Raiz) :-
 
 :- use_module(library(readutil)).
 
-buscar_regla(NombreArchivo, NombreRegla) :-
+% Predicado principal para buscar una palabra en las reglas de una lista de archivos
+buscar_palabra_en_archivos(NombresArchivos, Palabra) :-
+    maplist(buscar_regla(Palabra), NombresArchivos).
+
+% Predicado para buscar una regla en un archivo específico
+buscar_regla(NombreRegla, NombreArchivo) :-
     open(NombreArchivo, read, Stream),
-    buscar_regla_en_stream(Stream, NombreRegla),
-    close(Stream).
+    buscar_regla_en_stream(Stream, NombreRegla, Encontrado),
+    close(Stream),
+    ( Encontrado == true -> true ; fail ).
 
-buscar_regla_en_stream(Stream, NombreRegla) :-
+% Predicado para buscar una regla en el flujo de entrada (stream)
+buscar_regla_en_stream(Stream, NombreRegla, Encontrado) :-
     read_line_to_string(Stream, Linea),
-    (   Linea \= end_of_file
-    ->  (   sub_string(Linea, _, _, _, NombreRegla) -> writeln(Linea) ; true ),
-        buscar_regla_en_stream(Stream, NombreRegla)
-    ;   true ).
+    ( Linea \= end_of_file ->
+        ( es_regla_con_nombre(Linea, NombreRegla) ->
+            writeln(Linea),
+            leer_contenido_regla(Stream),
+            Encontrado = true
+        ;
+            buscar_regla_en_stream(Stream, NombreRegla, Encontrado)
+        )
+    ;
+        Encontrado = false
+    ).
 
-generar_codigo_predicado(Nombre, NumArgs) :-
-    generar_argumentos(NumArgs, Args),
-    atomic_list_concat(Args, ', ', ArgsStr),
-    format(atom(Predicado), '~w(~w, Salida)', [Nombre, ArgsStr]),
-    writeln(Predicado).
+% Predicado para verificar si una línea es una regla con el nombre especificado
+es_regla_con_nombre(Linea, NombreRegla) :-
+    sub_string(Linea, _, _, _, NombreRegla),
+    sub_string(Linea, _, _, _, ':-').
+
+% Predicado para leer y mostrar el contenido de la regla
+leer_contenido_regla(Stream) :-
+    read_line_to_string(Stream, Linea),
+    ( Linea \= end_of_file, \+ Linea = "" ->
+        writeln(Linea),
+        leer_contenido_regla(Stream)
+    ;
+        true
+    ).
 
 generar_argumentos(0, []) :- !.
 generar_argumentos(N, [Arg|Args]) :-
