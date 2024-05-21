@@ -501,7 +501,6 @@ analizarAccionRealizar(elimina, realizar, _, Entrada) :-
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la suma
 analizarAccionRealizar(suma, _, crear, Entrada) :-
-    !,
     write('Claro, aqui tienes el codigo de la suma: '),
     nl,
     re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
@@ -514,7 +513,6 @@ analizarAccionRealizar(suma, _, crear, Entrada) :-
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la resta
 analizarAccionRealizar(resta, _, crear, Entrada) :-
-    !,
     write('Claro, aqui tienes el codigo de la resta: '),
     nl,
     re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
@@ -527,7 +525,6 @@ analizarAccionRealizar(resta, _, crear, Entrada) :-
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la multiplicacion
 analizarAccionRealizar(multiplicacion, _, crear, Entrada) :-
-    !,
     write('Claro, aqui tienes el codigo de la multiplicacion: '),
     nl,
     re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
@@ -540,7 +537,6 @@ analizarAccionRealizar(multiplicacion, _, crear, Entrada) :-
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la division
 analizarAccionRealizar(division, _, crear, Entrada) :-
-    !,
     write('Claro, aqui tienes el codigo de la division: '),
     nl,
     re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
@@ -553,7 +549,6 @@ analizarAccionRealizar(division, _, crear, Entrada) :-
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo del modulo
 analizarAccionRealizar(modulo, _, crear, Entrada) :-
-    !,
     write('Claro, aqui tienes el codigo de la modulo: '),
     nl,
     re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
@@ -566,7 +561,6 @@ analizarAccionRealizar(modulo, _, crear, Entrada) :-
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la potencia
 analizarAccionRealizar(potencia, _, crear, Entrada) :-
-    !,
     write('Claro, aqui tienes el codigo de la potencia: '),
     nl,
     re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
@@ -579,7 +573,6 @@ analizarAccionRealizar(potencia, _, crear, Entrada) :-
 %Restricciones: Nada
 %Objetivo: Mostrar el codigo de la raiz cuadrada
 analizarAccionRealizar(raiz, _, crear, Entrada) :-
-    !,
     write('Claro, aqui tienes el codigo de la raiz: '),
     nl,
     re_matchsub(".*\\s(\\d+)\\s.*", Entrada, SubMatch, []),
@@ -592,11 +585,10 @@ analizarAccionRealizar(raiz, _, crear, Entrada) :-
 %Restricciones: Nada
 %Objetivo: Mostrar codigo almacenado
 analizarAccionRealizar(codifica, _, _, Entrada) :-
-    write('Claro, aqui tienes el codigo mas cercano en nuestro conocimiento: '),nl,
     re_matchsub("\"([^\"]*)\"", Entrada, SubMatch, []),
     Contenido = SubMatch.1,
-    buscar_palabra_en_archivos(['aritmetica.pl'],Contenido),
-    chatbotAux.
+    write('Claro, aqui tienes el codigo mas cercano en nuestro conocimiento: '),nl,
+    buscar_regla(Contenido,'aritmetica.pl').
 
 %Entrada: Una lista de numeros.
 %Salida: nada

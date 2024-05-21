@@ -44,10 +44,6 @@ raiz(Numero, Raiz) :-
 
 :- use_module(library(readutil)).
 
-% Predicado principal para buscar una palabra en las reglas de una lista de archivos
-buscar_palabra_en_archivos(NombresArchivos, Palabra) :-
-    maplist(buscar_regla(Palabra), NombresArchivos).
-
 % Predicado para buscar una regla en un archivo específico
 buscar_regla(NombreRegla, NombreArchivo) :-
     open(NombreArchivo, read, Stream),
@@ -84,6 +80,12 @@ leer_contenido_regla(Stream) :-
     ;
         true
     ).
+
+generar_codigo_predicado(Nombre, NumArgs) :-
+    generar_argumentos(NumArgs, Args),
+    atomic_list_concat(Args, ', ', ArgsStr),
+    format(atom(Predicado), '~w(~w, Salida)', [Nombre, ArgsStr]),
+    writeln(Predicado).
 
 generar_argumentos(0, []) :- !.
 generar_argumentos(N, [Arg|Args]) :-
